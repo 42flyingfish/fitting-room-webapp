@@ -1,23 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	    <!-- Required meta tags -->
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="script.js"></script> <!--import external javascript-->
+  <!--
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  -->
+  <link rel="stylesheet" href="style/style.css"> <!--import external css-->
+</head>
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="style.css">
-		<title>Hello, world!</title>
-	</head>
-  	<body>
-    	<h1><%= person %>
-    	</h1>
+<body>
+<div id="wrapper">
 
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	</body>
+  <div id="left-module">
+    <h3>Measurements</h3>
+	<table id="measurements">
+	  <tr>
+  		<th><h4>Chest</h4></th>
+  		<th><select id="chest_meas">
+    	  <option value="c1">32</option>
+    	  <option value="c2">33.5</option>
+    	  <option value="c3">35</option>
+    	  <option value="c4">36.5</option>
+    	  <option value="c5">38</option>
+    	  <option value="c6">39.5</option>
+  		</select></th>
+	  </tr>
+
+	  <tr>
+  		<th><h4>Waist</h4></th>
+  		<th><select id="waist_meas">
+    	  <option value="w1">24</option>
+    	  <option value="w2">25.5</option>
+    	  <option value="w3">27</option>
+    	  <option value="w4">28.5</option>
+    	  <option value="w5">30</option>
+    	  <option value="w6">31.5</option>
+  		</select></th>
+	  </tr>
+
+	  <tr>
+  	    <th><h4>Hips</h4></th>
+  		<th><select id="hips_meas">
+    	  <option value="h1">33</option>
+    	  <option value="h2">35</option>
+    	  <option value="h3">36.5</option>
+    	  <option value="h4">38</option>
+    	  <option value="h5">39.5</option>
+    	  <option value="h6">41</option>
+  		</select></th>
+	  </tr>
+	</table>
+  	
+  	<button onclick="model()">Get Model</button>
+  </div> <!--left-module-->
+
+  <div id="mid-module">
+	<table id="model-container">
+		<h3 id="rec-size">Model Size</h3>	
+  		<img id="model-img" src="model-div" style="display:none; height:400px;"/>
+	</table> <!--model-container-->
+  </div> <!--mid-module-->
+
+  <div id="right-module">
+	<table id="dress-container">
+		<h3 id="dress-lib">Dress Library</h3>
+		
+	</table> <!--dress-container-->
+  </div> <!--right-module-->
+  
+</div> <!--wrapper-->
+</body>
+
 </html>

@@ -1,3 +1,37 @@
-body{
-	
+body {
+	color: #aaaaaa;
+}
+
+h3 {
+  font: 16px Arial;
+  font-weight: bold;
+  text-align: center;
+}
+
+h4 {
+  font: 12px Arial;
+  text-align: right;
+}
+
+#wrapper div {
+  padding: 1em;
+  border: 1px solid #dddddd;
+  background-color: #eeeeee;
+  overflow: hidden;
+}
+
+#left-module {
+  float: left;
+  margin-right: 10px;
+}
+
+#mid-module {
+  float: left;
+  margin-right: 10px;
+  max-height: 500px;
+}
+
+#right-module {
+  margin: auto;
+  overflow:hidden;
 }
