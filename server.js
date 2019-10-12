@@ -8,7 +8,7 @@ var ejs = require("ejs");
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
-	password: "Garrysmod1^3"
+	password: ""
 });
 con.connect((err) => {
 	if(err) throw err;
