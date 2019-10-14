@@ -43,7 +43,13 @@ function model(){
 * Adds the images to the dress library
 */
 function addImages(){
-  for(let i = 0; i < 2; i++){
+  let img = document.createElement("img");
+    img.src = "images/dress0/dress-icon.png";
+    img.style.cssText = "cursor:pointer;";
+    img.setAttribute("onclick","setDress("+0+")");
+    let dressLib = document.getElementById("dress-container");
+    dressLib.appendChild(img);
+  for(let i = 1; i < 2; i++){
     let img = document.createElement("img");
     img.src = "testimg.png";
     img.style.cssText = "width:40%;margin: 20px; cursor:pointer;";
