@@ -19,43 +19,56 @@ h3 {
 h4 {
   font-size: 12px;
   font-weight: bold;
-  text-align: right;
   color: #333333;
 }
 
 #wrapper div {
-  padding: 1em;
-  overflow: hidden;
   text-align: center;
-}
-
-#main {
-  margin-bottom: 10px;
 }
 
 #left-module {
   float: left;
-  margin: 10px;
   border-right: 1px solid #dddddd;
   height: 500px;
+  width: 20%;
+  overflow: hidden;
 }
 
 #mid-module {
   float: left;
-  margin: 10px;
   height: 500px;
+  width: 59%;
+  overflow: hidden;
+}
+
+#mid-module img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 #right-module {
   float: right;
+  width: 20%;
   border-left: 1px solid #dddddd;
-  overflow:hidden;
+  overflow: hidden;
+  position: relative;
   height: 500px;
-  margin: 10px;
 }
 
-#right-module img {
-  height: 200px;
-  width: auto;
-  margin: 5px;
+#dress-container {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  overflow: auto;
+  max-height: 100%;
+}
+
+#dress-container img {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: block;
+  width: 50%;
 }
