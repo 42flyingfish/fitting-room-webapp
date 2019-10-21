@@ -1,12 +1,11 @@
 // base path to dress.
-let currentDress = "images/dress0/";
+let currentDress = "images/dress1/";
 /*
-* switches the dress model
+* Switches the dress model
 */
 function model(){ 
   var e = document.getElementById("hips_meas");
   var opt = e.options[e.selectedIndex].value;
-  /* var pic = "http://drive.google.com/uc?export=view&id=14H-Pig994PAnV3RW9ZYs5ZCyWXh7XXDH"; */
 
   let chest = document.getElementById("chest_meas").selectedIndex;
   let waist = document.getElementById("waist_meas").selectedIndex;
@@ -16,41 +15,55 @@ function model(){
 
   switch (bodAvg) {
     case 0:
-      var pic = currentDress + "dress-xs.png";
+      //var pic = currentDress + "dress-xs.png";
       document.getElementById("rec-size").innerHTML = "Model Size: XS";
       break;
     case 1:
-      var pic = currentDress + "dress-s.png";
+      //var pic = currentDress + "dress-s.png";
       document.getElementById("rec-size").innerHTML = "Model Size: S";
       break;
     case 2:
-      var pic = currentDress + "dress-m.png";
+      //var pic = currentDress + "dress-m.png";
       document.getElementById("rec-size").innerHTML = "Model Size: M";
       break;
     case 3:
-      var pic = currentDress + "dress-l.png";
+      //var pic = currentDress + "dress-l.png";
       document.getElementById("rec-size").innerHTML = "Model Size: L";
       break;
     case 4:
-      var pic = currentDress + "dress-xl.png";
+      //var pic = currentDress + "dress-xl.png";
       document.getElementById("rec-size").innerHTML = "Model Size: XL";
       break;
     case 5:
-      var pic = currentDress + "dress-xxl.png";
+      //var pic = currentDress + "dress-xxl.png";
       document.getElementById("rec-size").innerHTML = "Model Size: XXL";
       break;
+  }
 }
-  
-  document.getElementById('model-img').src = pic;
+/*
+* Sets model picture from specified file uploaded
+*/
+function setModel() {
+  let imgElement = document.getElementById("model-img");
+  let inputElement = document.getElementById("chosenFile");
+  let filename = inputElement.value;
+  filename = "images/" + filename.substr(filename.lastIndexOf("\\") + 1);
+  imgElement.src = filename; 
   document.getElementById('model-img').style.display='block';
-  document.getElementById('rec-size').style.display='block';
-  
+}
+/*
+* Dresses model with current dress
+*/
+function setDress(dressNum) {
+  currentDress = "images/dress"+dressNum+"/";
+  document.getElementById('dress-img').src = currentDress + "dress-crop.png";
+  document.getElementById('dress-img').style.display='block';
 }
 /*
 * Adds the images to the dress library
 */
-function addImages(){
-  for (let i = 0; i < 2; i++) {
+function addImages() {
+  for (let i = 1; i < 8; i++) {
     let dress = "images/dress"+i+"/dress-icon.png";
     let img = document.createElement("img");
     img.src = dress;
@@ -60,12 +73,12 @@ function addImages(){
   }
 }
 /*
-* chooses which dresses will be displayed
+* Uploads image to the dress library - NOT DONE YET
+* Problem: Choose File only gets me image file name, not path to image file
 */
-function setDress(dressNum){
-  currentDress = "images/dress"+dressNum+"/";
+function addImage() {
+  let dress = "";
 }
-
 /*
 * On loading the window add the images to the dress library.
 */

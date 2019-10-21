@@ -29,14 +29,25 @@ h4 {
 #left-module {
   float: left;
   border-right: 1px solid #dddddd;
-  height: 500px;
+  height: 650px;
   width: 20%;
   overflow: hidden;
+  position: relative;
+}
+
+#measurements {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#measurements tr {
+  line-height: 0px;
 }
 
 #mid-module {
   float: left;
-  height: 500px;
+  height: 650px;
   width: 59%;
   overflow: hidden;
 }
@@ -44,7 +55,11 @@ h4 {
 #mid-module img {
   margin-left: auto;
   margin-right: auto;
-  display: block;
+}
+
+#dress-img {
+  position: relative;
+  margin-top: -320px;
 }
 
 #right-module {
@@ -53,21 +68,19 @@ h4 {
   border-left: 1px solid #dddddd;
   overflow: hidden;
   position: relative;
-  height: 500px;
+  height: 650px;
 }
 
 #dress-container {
   margin-left: auto;
   margin-right: auto;
-  display: block;
   overflow: auto;
-  max-height: 100%;
+  max-height: 450px;
 }
 
 #dress-container img {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
   margin-bottom: 10px;
   display: block;
   width: 50%;
