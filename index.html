@@ -9,17 +9,18 @@
   -->
   <!--For Roboto-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style/style.css"> <!--import external css-->
+  <link rel="stylesheet" type="text/css" href="style/style.css"> <!--import external css-->
   <h1 id="webtitle">Bridal Fitter</h1>
 </head>
 
 <body>
 <div id="wrapper">
     <div id="left-module">
-      <div class="upload">
+      <form action='/' method="post" enctype="multipart/form-data" class="upload">
         <h3>Upload your picture</h3>
-        <input type="file" id="chosenFile" onchange="setModel()" />
-      </div> <!--upload-->
+        <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />
+	<button id="submit">Submit</button>
+      </form> <!--upload-->
       <h3>Measurements</h3>
 	  <table id="measurements">
 	    <tr>
