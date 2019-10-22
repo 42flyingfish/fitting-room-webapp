@@ -7,6 +7,7 @@ const port = 3000;
 const router = express.Router();
 var mysql = require("mysql");
 var ejs = require("ejs");
+
 /*
 var con = mysql.createConnection({
 	host: "localhost",
@@ -30,6 +31,8 @@ con.connect((err) => {
 */
 
 app.post('/', upload.single('chosenFile'), function (req, res, next) {
+	const file = req.file
+	res.redirect('/')
 
 })
 
