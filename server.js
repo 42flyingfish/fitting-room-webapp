@@ -1,10 +1,16 @@
 const express = require("express");
+const multer  = require('multer')
+const upload = multer({ dest: 'public/images' })
 const app = express();
 const path = require("path");
 const port = 3000;
 const router = express.Router();
 var mysql = require("mysql");
 var ejs = require("ejs");
+var bodyParser = require("body-parser");
+var urlEncodedParser = bodyParser.urlencoded({extended: false});
+
+/*
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
@@ -24,14 +30,29 @@ con.connect((err) => {
 		console.log(result);
 	});
 });
+*/
 
 
+
+
+
+app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
+	const file = req.file;
+	console.log(req.body);
+	res.redirect('/dress');
+
+});
 
 router.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname+"/index.html"));
+	
 });
 
-app.use(express.static(__dirname+"/style"));
+router.get("/dress", (req, res) => {
+	res.sendFile(path.join(__dirname+"/dress.html"));
+});
+
+app.use(express.static(__dirname+"/public"));
 
 
 app.use("/", router);
