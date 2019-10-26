@@ -24,6 +24,7 @@ var con = mysql.createConnection({
 
 con.connect();
 
+
 /*
 * set the default database to mydb
 */
