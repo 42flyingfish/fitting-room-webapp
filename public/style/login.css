@@ -38,6 +38,7 @@ form input[type="text"]::placeholder, form input[type="password"]::placeholder{
     
 }
 form input[type="submit"]{
+    cursor:pointer;
     border:none;
     outline:none;
     background-color:transparent;
@@ -51,7 +52,6 @@ form input[type="submit"]{
     font-size:24px;
     
 }
-
 form a{
     
     font-family:sans-serif;
