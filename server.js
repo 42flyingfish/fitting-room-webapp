@@ -13,53 +13,67 @@ var bodyParser = require("body-parser");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname+"/"));
 
-
+/*
+*	mysql connection stuff
+*/
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "123"
 });
+
+con.connect();
+
 /*
-con.connect((err) => {
-	if(err) throw err;
-	console.log("Connected!");
-	con.query("use mydb;", (err, result) => {
-		if(err) throw err;
-	});
-	con.query("INSERT INTO tbl(id, name) VALUES(333,'bob');", (err, result) => {
-		if(err) throw err;
-	});
-	con.query("SELECT * FROM tbl;", (err, result) => {
-		if(err) throw err;
-		console.log(result);
-	});
-});
-*/ 
+* set the default database to mydb
+*/
+con.query("use mydb;", (err, result) => {if(err) throw err;});
 
-
-
+/*
+* creates a user if one does not already exist
+*/
 app.post("/", upload1.none(), (req, res, next) => {
-	console.log("pass");
+	let username = req.body.username,
+		password = req.body.password;
+
+	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
+		if(err) throw err;
+
+		if(!row.length){
+			con.query("INSERT INTO users(username, password) VALUES(?, ?);", [username,password], (err, result) =>{
+				if(err) throw err;
+			});
+		}
+		else{
+			//user already exists
+		}
+	});
 	res.redirect("/");
 });
-
+/*
+* checks if user account exists and the password matches the username continue to app, if not block user from entering
+*/
 app.post('/dress',upload1.none(), function (req, res, next) {
-	con.connect((err) => {
+	let username = req.body.username,
+		password = req.body.password;
+	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
-		con.query("use mydb;", (err, result) => {
-			if(err) throw err;
-		});
+		
+		if(!row.length){
+			console.log("user does not exist or info typed incorrectly");
+		}
+		else{
+			console.log("user exists");
+		}
 
-		con.query("SELECT * FROM users WHERE username='"+req.body.username+"'", (err, result) => {
-			if(err) throw err;
-			// this is where validation goes
-
-		});
 	});
+
 	res.redirect("/dress");
 });
 
-
+/*
+* uploads files to server
+*/
 
 app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 	const file = req.file;
@@ -76,7 +90,9 @@ app.get("/dress", (req, res) => {
 	res.sendFile(path.join(__dirname+"/dress.html"));
 });
 
-
+app.get("/dress", (req, res) => {
+	res.sendFile(path.join(__dirname+"/signup.html"));
+});
 
 
 
