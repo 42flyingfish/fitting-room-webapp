@@ -36,7 +36,7 @@ con.query("use mydb;", (err, result) => {if(err) throw err;});
 app.post("/", upload1.none(), (req, res, next) => {
 	let username = req.body.username,
 		password = req.body.password;
-	console.log("blah");
+	console.log("pass");
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
@@ -61,7 +61,6 @@ app.post('/dress',upload1.none(), function (req, res, next) {
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
 		if(!row.length){
-			//res.redirect("/");
 			res.status(200);
 			res.end("The information entered is incorrect.");
 		}
@@ -85,16 +84,16 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname+"/index.html"));
+	res.sendFile(path.join(__dirname,"/index.html"));
 	
 });
 
 app.get("/dress", (req, res) => {
-	res.sendFile(path.join(__dirname+"/dress.html"));
+	res.sendFile(path.join(__dirname,"/dress.html"));
 });
 
-app.get("/dress", (req, res) => {
-	res.sendFile(path.join(__dirname+"/signup.html"));
+app.get("/signup", (req, res) => {
+	res.sendFile(path.join(__dirname,"/signup.html"));
 });
 
 

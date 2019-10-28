@@ -50,7 +50,7 @@ form input[type="submit"]{
 
     font-family:"Roboto-Condensed", sans-serif;
     font-size:24px;
-    
+    margin-bottom:0;
 }
 form a{
     
@@ -59,7 +59,17 @@ form a{
 form h1{
     font-family: "Roboto-Condensed", sans-serif;
 }
+.link-group{
+    width:75%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
 .angryText{
     font-family:sans-serif;
     color:#f00;
+    height:1em;
+    
 }

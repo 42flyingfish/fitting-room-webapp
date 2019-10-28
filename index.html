@@ -7,16 +7,8 @@
         <script src="login.js"></script>
     </head>
     <body>
-        <!--
-            $("button").click(function(){
-  $.get("demo_test.asp", function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
-  });
-});
-
-
-        -->
-        <!--user form-->
+        <!--I think this is ajax, it may just be jquery.  It sends the user info to server.
+        Then checks if login info is correct based on server response-->
         <script>
             $(document).ready(function(){
                 $("#submit-btn").click(function(e){
@@ -37,9 +29,8 @@
                     });
                 });
             });
-                
-           
         </script>
+        <!--user form-->
         <form  method="post" action="/dress" enctype="multipart/form-data" id="usrForm">
             <h1>Login</h1>
 
@@ -50,7 +41,6 @@
             <div class="link-group">
                 <p id="angryText" class="angryText"></p>
                 <a href="signup.html">sign up</a></br>
-                <a href="#">forgot password</a>
             </div>
         </form>
     </body>
