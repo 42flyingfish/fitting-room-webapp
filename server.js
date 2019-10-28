@@ -36,7 +36,7 @@ con.query("use mydb;", (err, result) => {if(err) throw err;});
 app.post("/", upload1.none(), (req, res, next) => {
 	let username = req.body.username,
 		password = req.body.password;
-
+	console.log("1");
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
@@ -44,12 +44,13 @@ app.post("/", upload1.none(), (req, res, next) => {
 			con.query("INSERT INTO users(username, password) VALUES(?, ?);", [username,password], (err, result) =>{
 				if(err) throw err;
 			});
+			res.redirect("/");
 		}
 		else{
-			//user already exists
+			res.redirect("/signup");
 		}
 	});
-	res.redirect("/");
+	
 });
 /*
 * checks if user account exists and the password matches the username continue to app, if not block user from entering
@@ -57,19 +58,21 @@ app.post("/", upload1.none(), (req, res, next) => {
 app.post('/dress',upload1.none(), function (req, res, next) {
 	let username = req.body.username,
 		password = req.body.password;
+	console.log(username,password);
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
-		
+		console.log(row.length);
 		if(!row.length){
-			console.log("user does not exist or info typed incorrectly");
+			//res.redirect("/");
+			res.end("The information entered is incorrect.");
 		}
 		else{
-			console.log("user exists");
+			res.redirect("/dress");
 		}
 
 	});
 
-	res.redirect("/dress");
+	
 });
 
 /*
