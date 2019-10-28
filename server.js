@@ -36,7 +36,7 @@ con.query("use mydb;", (err, result) => {if(err) throw err;});
 app.post("/", upload1.none(), (req, res, next) => {
 	let username = req.body.username,
 		password = req.body.password;
-
+	console.log(username,password);
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
@@ -44,12 +44,14 @@ app.post("/", upload1.none(), (req, res, next) => {
 			con.query("INSERT INTO users(username, password) VALUES(?, ?);", [username,password], (err, result) =>{
 				if(err) throw err;
 			});
+			res.redirect("/");
 		}
 		else{
-			//user already exists
+			res.status(200);
+			res.end("Username already exists, choose another username.");
 		}
 	});
-	res.redirect("/");
+	
 });
 /*
 * checks if user account exists and the password matches the username continue to app, if not block user from entering
@@ -59,17 +61,17 @@ app.post('/dress',upload1.none(), function (req, res, next) {
 		password = req.body.password;
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
-		
 		if(!row.length){
-			console.log("user does not exist or info typed incorrectly");
+			res.status(200);
+			res.end("The information entered is incorrect.");
 		}
 		else{
-			console.log("user exists");
+			res.redirect("/dress");
 		}
 
 	});
 
-	res.redirect("/dress");
+	
 });
 
 /*
@@ -83,16 +85,17 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname+"/index.html"));
+	res.sendFile(path.join(__dirname,"/index.html"));
 	
 });
 
 app.get("/dress", (req, res) => {
-	res.sendFile(path.join(__dirname+"/dress.html"));
+	res.sendFile(path.join(__dirname,"/dress.html"));
 });
 
 app.get("/signup", (req, res) => {
 	res.sendFile(path.join(__dirname+"/signup.html"));
+	res.sendFile(path.join(__dirname,"/signup.html"));
 });
 
 
