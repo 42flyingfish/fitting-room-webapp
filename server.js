@@ -36,7 +36,7 @@ con.query("use mydb;", (err, result) => {if(err) throw err;});
 app.post("/", upload1.none(), (req, res, next) => {
 	let username = req.body.username,
 		password = req.body.password;
-	console.log("pass");
+	console.log(username,password);
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
@@ -47,7 +47,8 @@ app.post("/", upload1.none(), (req, res, next) => {
 			res.redirect("/");
 		}
 		else{
-			res.redirect("/signup");
+			res.status(200);
+			res.end("Username already exists, choose another username.");
 		}
 	});
 	
