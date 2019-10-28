@@ -59,3 +59,7 @@ form a{
 form h1{
     font-family: "Roboto-Condensed", sans-serif;
 }
+.angryText{
+    font-family:sans-serif;
+    color:#f00;
+}

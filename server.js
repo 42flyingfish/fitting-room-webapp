@@ -36,7 +36,7 @@ con.query("use mydb;", (err, result) => {if(err) throw err;});
 app.post("/", upload1.none(), (req, res, next) => {
 	let username = req.body.username,
 		password = req.body.password;
-	console.log("1");
+	console.log("blah");
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
@@ -58,12 +58,11 @@ app.post("/", upload1.none(), (req, res, next) => {
 app.post('/dress',upload1.none(), function (req, res, next) {
 	let username = req.body.username,
 		password = req.body.password;
-	console.log(username,password);
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
-		console.log(row.length);
 		if(!row.length){
 			//res.redirect("/");
+			res.status(200);
 			res.end("The information entered is incorrect.");
 		}
 		else{
