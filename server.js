@@ -13,7 +13,7 @@ const dest = multer.diskStorage({
 	filename: function(req, file, cb) {
 		cb(null, file.fieldname + '-' + file.originalname)
 	}
-})
+});
 const upload = multer({ storage: dest })
 const app = express();
 const path = require("path");
