@@ -11,27 +11,33 @@
             $(document).ready(function(){
                 $("#submit-btn").click(function(e){
                     e.preventDefault();
-                    $.post("/",{
-                        username: $("#username").val(),
-                        password: $("#password").val()
-                    }, (data, status) =>{
-                        if(data === "Username already exists, choose another username."){
-                            $("#angryText").text(data);
-                        }
-                        else{
-                            $(location).attr("href","http://localhost:3000");
-                        }
-                    });
+                    if($("#password").val() === $("#confirm").val()){
+                        alert("pass");
+                        $.post("/",{
+                            username: $("#username").val(),
+                            password: $("#password").val()
+                        }, (data, status) =>{
+                            if(data === "Username already exists, choose another username."){
+                                $("#angryText").text(data);
+                            }
+                            else{
+                                $(location).attr("href","http://localhost:3000");
+                            }
+                        });
+                    }
+                    else{
+                        $("#angryText").text("password does not match confirmation password.");
+                    }
                 });
             });
         </script>
         <!--user form-->
         <form  method="post" action="/" enctype="multipart/form-data" id="usrForm">
             <h1>Signup</h1>
-
+            <input name="name" id="name" class="txtfield" type="text" placeholder="Enter your name">
             <input name="username" id="username" class="txtfield" type="text" placeholder="Enter your username">
-            
             <input name="password" id="password" class="txtfield" type="password" placeholder="Enter you password">
+            <input name="confirm" id="confirm" class="txtfield" type="password" placeholder="Confirm your password">
             <input id="submit-btn" class="btn" type="submit">
             <p id="angryText" class="angryText"></p>
         </form>

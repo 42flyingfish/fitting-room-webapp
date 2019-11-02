@@ -9,6 +9,7 @@ const router = express.Router();
 var mysql = require("mysql");
 var ejs = require("ejs");
 var bodyParser = require("body-parser");
+//var cv = require("opencv4node");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname+"/"));
@@ -19,29 +20,25 @@ app.use(express.static(__dirname+"/"));
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
-	password: "123"
+	password: "123",
+	database: "mydb"
 });
 
 con.connect();
-
-
-/*
-* set the default database to mydb
-*/
-con.query("use mydb;", (err, result) => {if(err) throw err;});
 
 /*
 * creates a user if one does not already exist
 */
 app.post("/", upload1.none(), (req, res, next) => {
-	let username = req.body.username,
+	let name 	 = req.body.name,
+		username = req.body.username,
 		password = req.body.password;
 	console.log(username,password);
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
 		if(!row.length){
-			con.query("INSERT INTO users(username, password) VALUES(?, ?);", [username,password], (err, result) =>{
+			con.query("INSERT INTO users(name, username, password) VALUES(?, ?, ?);", [name, username,password], (err, result) =>{
 				if(err) throw err;
 			});
 			res.redirect("/");
@@ -95,7 +92,6 @@ app.get("/dress", (req, res) => {
 
 app.get("/signup", (req, res) => {
 	res.sendFile(path.join(__dirname+"/signup.html"));
-	res.sendFile(path.join(__dirname,"/signup.html"));
 });
 
 
