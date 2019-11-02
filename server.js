@@ -1,6 +1,22 @@
 const express = require("express");
 const multer  = require('multer');
-const upload = multer({ dest: 'public/images' });
+
+
+// Setting for how multer will handle the files
+const dest = multer.diskStorage({
+        // Destination for where the files will be uploaded too
+        destination: function(req, res, cb) {
+                cb(null, 'public/images')
+        },
+        // Setting for the name of the newly created file
+        // Currently set to save as the field name plus the original upload name
+        // There is an issue that files can overwrite eachother
+        filename: function(req, file, cb) {
+                cb(null, file.fieldname + '-' + file.originalname)
+        }
+});
+const upload = multer({ storage: dest })
+
 const upload1 = multer();
 const app = express();
 const path = require("path");
