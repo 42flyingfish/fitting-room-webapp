@@ -14,6 +14,7 @@
                     if($("#password").val() === $("#confirm").val()){
                         alert("pass");
                         $.post("/",{
+                            name: $("#name").val(),
                             username: $("#username").val(),
                             password: $("#password").val()
                         }, (data, status) =>{
