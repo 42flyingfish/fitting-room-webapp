@@ -107,7 +107,7 @@ app.get("/dress", (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
-	res.sendFile(path.join(__dirname+"/signup.html"));
+	res.sendFile(path.join(__dirname,"/signup.html"));
 });
 
 
