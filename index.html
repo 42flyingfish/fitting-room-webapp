@@ -12,12 +12,10 @@
             $(document).ready(function(){
                 $("#submit-btn").click(function(e){
                     e.preventDefault();
-                    
                     $.post("/dress",{
                         username: $("#username").val(),
                         password: $("#password").val()
                     },(data, status) =>{
-                        
                         if(data === "The information entered is incorrect."){
                             $("#angryText").text(data);
                             
