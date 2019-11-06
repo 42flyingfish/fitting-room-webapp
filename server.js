@@ -112,5 +112,5 @@ app.get("/signup", (req, res) => {
 
 
 
-app.listen(process.env.port || 3000);
+app.listen(process.env.PORT || 8080);
 console.log("Running at port 3000");
