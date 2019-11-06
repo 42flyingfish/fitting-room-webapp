@@ -31,15 +31,24 @@ app.use(express.static(__dirname+"/"));
 
 /*
 *	mysql connection stuff
+*/
 
 var con = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "123",
-	database: "mydb"
+	host: process.env.RDS_HOSTNAME,
+	user: process.env.RDS_USERNAME,
+	password: process.env.RDS_PASSWORD,
+	port : process.env.RDS_PORT
+//	database: process.env.RDS_DATABASE
 });
 
-con.connect();
+con.connect(function(err) {
+	if (err) 
+	{
+		console.log("Failed to connect to Database" + err.stack);
+		return 
+	}
+	console.log("Successful connection");
+});
 
 /*
 * creates a user if one does not already exist
