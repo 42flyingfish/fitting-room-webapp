@@ -46,9 +46,8 @@ function model(){
 function setModel() {
   let imgElement = document.getElementById("model-img");
   let inputElement = document.getElementById("chosenFile");
-  let filename = inputElement.value;
-  filename = "images/" + filename.substr(filename.lastIndexOf("\\") + 1);
-  imgElement.src = filename; 
+  let filename = window.URL.createObjectURL(inputElement.files[0]);
+  imgElement.src = filename;
   document.getElementById('model-img').style.display='block';
 }
 /*
