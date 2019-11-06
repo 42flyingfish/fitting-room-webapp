@@ -20,11 +20,10 @@ const upload = multer({ storage: dest })
 const upload1 = multer();
 const app = express();
 const path = require("path");
-const port = 3000;
 const router = express.Router();
-var mysql = require("mysql");
-var ejs = require("ejs");
-var bodyParser = require("body-parser");
+// var mysql = require("mysql");
+// var ejs = require("ejs");
+// var bodyParser = require("body-parser");
 //var cv = require("opencv4node");
 
 app.use(express.urlencoded({ extended: false }));
@@ -69,6 +68,7 @@ app.post("/", upload1.none(), (req, res, next) => {
 /*
 * checks if user account exists and the password matches the username continue to app, if not block user from entering
 */
+/*
 app.post('/dress',upload1.none(), function (req, res, next) {
 	let username = req.body.username,
 		password = req.body.password;
@@ -86,6 +86,7 @@ app.post('/dress',upload1.none(), function (req, res, next) {
 
 	
 });
+*/
 
 /*
 * uploads files to server
@@ -113,4 +114,4 @@ app.get("/signup", (req, res) => {
 
 
 app.listen(process.env.PORT || 8080);
-console.log("Running at port 3000");
+console.log("Running at port ", process.env.PORT || 8080);
