@@ -45,7 +45,6 @@ con.connect((err) => {
 */
 
 app.post('/', upload.single('chosenFile'), function (req, res, next) {
-	const file = req.file
 	res.redirect('/')
 
 })
