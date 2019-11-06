@@ -32,7 +32,7 @@ app.use(express.static(__dirname+"/"));
 
 /*
 *	mysql connection stuff
-*/
+
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
