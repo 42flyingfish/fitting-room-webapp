@@ -12,7 +12,6 @@
                 $("#submit-btn").click(function(e){
                     e.preventDefault();
                     if($("#password").val() === $("#confirm").val()){
-                        alert("pass");
                         $.post("/",{
                             name: $("#name").val(),
                             username: $("#username").val(),
