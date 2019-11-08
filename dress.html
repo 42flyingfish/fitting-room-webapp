@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="scripts/script.js"></script> <!--import external javascript-->
+  <script src="public/scripts/script.js"></script> <!--import external javascript-->
+  
+  <script src="public/scripts/cv.js"></script>
+  <script async src="public/scripts/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
   <!--
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
   -->
   <!--For Roboto-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="style/style.css"> <!--import external css-->
+  <link rel="stylesheet" type="text/css" href="public/style/style.css"> <!--import external css-->
   <h1 id="webtitle">Bridal Fitter</h1>
 </head>
 
@@ -18,8 +21,9 @@
     <div id="left-module">
       <form action='/dress' method="post" enctype="multipart/form-data" class="upload">
         <h3>Upload your picture</h3>
-        <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />
-	<button id="submit">Submit</button>
+	   <!-- <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />-->
+	   <input type="file" id="fileInput" name="file">
+	<!--<button id="submit">Submit</button>-->
       </form> <!--upload-->
       <h3>Measurements</h3>
 	  <table id="measurements">
@@ -67,9 +71,11 @@
     <div id="mid-module">
       <h3 id="rec-size">Model Size</h3>
 
-	  <table id="model-container">	
-  		<img id="model-img" class="center" src="model-div" style="display:none; height:400px;"/>
-  		<img id="dress-img" class="center" src="model-div" style="display:none; height:400px"/>
+	  <table id="model-container">
+		
+		  <canvas id="canvasOutput" style="height:400px;"></canvas>	
+		  <img id="dress-img" class="center" src="" style="display:block;display:none; height:400px;"/>
+		<img id="model-img" class="center" src="" style="display:none; height:400px;"/>
 	  </table> <!--model-container-->
 
     </div> <!--mid-module-->

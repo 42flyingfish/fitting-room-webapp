@@ -1,6 +1,7 @@
 const express = require("express");
 const multer  = require('multer');
 
+
 // Setting for how multer will handle the files
 const dest = multer.diskStorage({
         // Destination for where the files will be uploaded too
@@ -14,8 +15,8 @@ const dest = multer.diskStorage({
                 cb(null, file.fieldname + '-' + file.originalname)
         }
 });
+const upload = multer({ storage: dest })
 
-const upload = multer({ storage: dest });
 const upload1 = multer();
 const app = express();
 const path = require("path");
@@ -106,7 +107,7 @@ app.get("/dress", (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
-	res.sendFile(path.join(__dirname+"/signup.html"));
+	res.sendFile(path.join(__dirname,"/signup.html"));
 });
 
 
