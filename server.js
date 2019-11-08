@@ -90,13 +90,13 @@ app.post('/dress',upload1.none(), function (req, res, next) {
 /*
 * uploads files to server
 */
-
+/*
 app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 	const file = req.file;
 	res.redirect('/dress');
 
 });
-
+*/
 app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname,"/index.html"));
 	

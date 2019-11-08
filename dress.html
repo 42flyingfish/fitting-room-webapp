@@ -6,10 +6,8 @@
   
   <script src="public/scripts/cv.js"></script>
   <script async src="public/scripts/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
-  <!--
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-  -->
   <!--For Roboto-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="public/style/style.css"> <!--import external css-->
@@ -22,7 +20,7 @@
       <form action='/dress' method="post" enctype="multipart/form-data" class="upload">
         <h3>Upload your picture</h3>
 	   <!-- <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />-->
-	   <input type="file" id="fileInput" name="file">
+		   <input type="file" id="fileInput" name="file">
 	<!--<button id="submit">Submit</button>-->
       </form> <!--upload-->
       <h3>Measurements</h3>
@@ -64,7 +62,7 @@
 	    </tr>
 	  </table>
   	
-  	  <button onclick="model()">Get Recommended Size</button><br><br>
+  	  <button type="button" class="btn btn-dark" onclick="model()">Get Recommended Size</button><br><br>
 
     </div> <!--left-module-->
 
