@@ -56,7 +56,7 @@ function setModel() {
 * Dresses model with current dress
 */
 function setDress(dressNum) {
-  currentDress = "images/dress"+dressNum+"/";
+  currentDress = "public/images/dress"+dressNum+"/";
   document.getElementById('dress-img').src = currentDress + "dress-crop.png";
   document.getElementById('dress-img').style.display='block';
 }
@@ -65,7 +65,7 @@ function setDress(dressNum) {
 */
 function addImages() {
   for (let i = 1; i < 8; i++) {
-    let dress = "images/dress"+i+"/dress-icon.png";
+    let dress = "public/images/dress"+i+"/dress-icon.png";
     let img = document.createElement("img");
     img.src = dress;
     img.setAttribute("onclick","setDress("+i+")");
