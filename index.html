@@ -1,93 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="scripts/script.js"></script> <!--import external javascript-->
-  <!--
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-  -->
-  <!--For Roboto-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="style/style.css"> <!--import external css-->
-  <h1 id="webtitle">Bridal Fitter</h1>
-</head>
+<html>
+    <head>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="public/style/login.css">
+    </head>
+    <body>
+        <!--I think this is ajax, it may just be jquery.  It sends the user info to server.
+        Then checks if login info is correct based on server response-->
+        <script>
+            $(document).ready(function(){
+                $("#submit-btn").click(function(e){
+                    e.preventDefault();
+                    
+                    $.post("/dress",{
+                        username: $("#username").val(),
+                        password: $("#password").val()
+                    },(data, status) =>{
+                        
+                        if(data === "The information entered is incorrect."){
+                            $("#angryText").text(data);
+                            
+                        }
+                        else{
+                            $(location).attr("href","http://localhost:3000/dress");
+                        }
+                    });
+                });
+            });
+        </script>
+        <!--user form-->
+        <form  method="post" action="/dress" enctype="multipart/form-data" id="usrForm">
+            <h1>Login</h1>
 
-<body>
-<div id="wrapper">
-    <div id="left-module">
-      <form action='/' method="post" enctype="multipart/form-data" class="upload">
-        <h3>Upload your picture</h3>
-        <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />
-	<button id="submit">Submit</button>
-      </form> <!--upload-->
-      <h3>Measurements</h3>
-	  <table id="measurements">
-	    <tr>
-  		  <th><h4>Chest</h4></th>
-  		  <th><select id="chest_meas">
-    	    <option value="c1">32</option>
-    	    <option value="c2">33.5</option>
-    	    <option value="c3">35</option>
-    	    <option value="c4">36.5</option>
-    	    <option value="c5">38</option>
-    	    <option value="c6">39.5</option>
-  		  </select></th>
-	    </tr>
-
-	    <tr>
-  		  <th><h4>Waist</h4></th>
-  		  <th><select id="waist_meas">
-    	    <option value="w1">24</option>
-    	    <option value="w2">25.5</option>
-    	    <option value="w3">27</option>
-    	    <option value="w4">28.5</option>
-    	    <option value="w5">30</option>
-    	    <option value="w6">31.5</option>
-  		  </select></th>
-	    </tr>
-
-	    <tr>
-  	      <th><h4>Hips</h4></th>
-  		  <th><select id="hips_meas">
-    	    <option value="h1">33</option>
-    	    <option value="h2">35</option>
-    	    <option value="h3">36.5</option>
-    	    <option value="h4">38</option>
-    	    <option value="h5">39.5</option>
-    	    <option value="h6">41</option>
-  		  </select></th>
-	    </tr>
-	  </table>
-  	
-  	  <button onclick="model()">Get Recommended Size</button><br><br>
-
-    </div> <!--left-module-->
-
-    <div id="mid-module">
-      <h3 id="rec-size">Model Size</h3>
-
-	  <table id="model-container">	
-  		<img id="model-img" class="center" src="model-div" style="display:none; height:400px;"/>
-  		<img id="dress-img" class="center" src="model-div" style="display:none; height:400px"/>
-	  </table> <!--model-container-->
-
-    </div> <!--mid-module-->
-
-  	<div id="right-module">
-  	  <h3>Dress Library</h3>
-
-	  <div id="dress-container">
-	  </div><br> <!--dress-container-->
-
-	  <div class="upload">
-        <h3>Add to dress library</h3>
-        <input type="file" id="chosenDressFile" />
-      </div> <!--upload-->
-
-    </div> <!--right-module-->
-  
-</div> <!--wrapper-->
-</body>
-
+            <input name="username" id="username" class="txtfield" type="text" placeholder="Enter your username">
+            
+            <input name="password" id="password" class="txtfield" type="password" placeholder="Enter you password">
+            <input id="submit-btn" class="btn" type="submit">
+            <div class="link-group">
+                <p id="angryText" class="angryText"></p>
+                <a href="signup">sign up</a></br>
+            </div>
+        </form>
+    </body>
 </html>
