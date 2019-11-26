@@ -38,7 +38,6 @@ var con = mysql.createConnection({
 	user: process.env.RDS_USERNAME,
 	password: process.env.RDS_PASSWORD,
 	port : process.env.RDS_PORT
-//	database: process.env.RDS_DATABASE
 });
 
 con.connect(function(err) {
@@ -46,13 +45,14 @@ con.connect(function(err) {
 	{
 		console.log("Failed to connect to Database" + err.stack);
 		return 
+	} else {
+		console.log("Successful connection");
 	}
-	console.log("Successful connection");
 });
 
 /*
-* creates a user if one does not already exist
-*/
+ * creates a user if one does not already exist
+ */
 app.post("/", upload1.none(), (req, res, next) => {
 	let name 	 = req.body.name,
 		username = req.body.username,
@@ -72,11 +72,11 @@ app.post("/", upload1.none(), (req, res, next) => {
 			res.end("Username already exists, choose another username.");
 		}
 	});
-	
+
 });
 /*
-* checks if user account exists and the password matches the username continue to app, if not block user from entering
-*/
+ * checks if user account exists and the password matches the username continue to app, if not block user from entering
+ */
 /*
 app.post('/dress',upload1.none(), function (req, res, next) {
 	let username = req.body.username,
@@ -93,13 +93,13 @@ app.post('/dress',upload1.none(), function (req, res, next) {
 
 	});
 
-	
+
 });
 */
 
 /*
-* uploads files to server
-*/
+ * uploads files to server
+ */
 
 app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 	const file = req.file;
@@ -109,7 +109,7 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname,"/index.html"));
-	
+
 });
 
 app.get("/dress", (req, res) => {
