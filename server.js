@@ -37,17 +37,16 @@ var con = mysql.createConnection({
 	host: process.env.RDS_HOSTNAME,
 	user: process.env.RDS_USERNAME,
 	password: process.env.RDS_PASSWORD,
-	port : process.env.RDS_PORT
+	port : process.env.RDS_PORT,
+	database : process.env.RDS_DB_NAME
 });
 
 con.connect(function(err) {
-	if (err) 
-	{
+	if (err) {
 		console.log("Failed to connect to Database" + err.stack);
-		return 
-	} else {
-		console.log("Successful connection");
+		return;
 	}
+		console.log("Successful connection");
 });
 
 /*
@@ -59,7 +58,11 @@ app.post("/", upload1.none(), (req, res, next) => {
 		password = req.body.password;
 	console.log(username,password);
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
-		if(err) throw err;
+		if(err) {
+			console.log("failed to add a user");
+			throw err;
+			return;
+		}
 
 		if(!row.length){
 			con.query("INSERT INTO users(name, username, password) VALUES(?, ?, ?);", [name, username,password], (err, result) =>{
