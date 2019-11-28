@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="../public/style/store.css">
+  
+  <title>Dress Store</title>
+
+</head>
+
+<body>
+  <header>
+
+        <script>
+          $(document).ready(function () {
+          
+
+
+          $('.first-button').on('click', function () {
+          
+          $('.animated-icon1').toggleClass('open');
+          });
+          $('.second-button').on('click', function () {
+          
+          $('.animated-icon2').toggleClass('open');
+          });
+          $('.third-button').on('click', function () {
+          
+          $('.animated-icon3').toggleClass('open');
+          });
+          });
+        </script>
+        <header>
+          <!--Navbar-->
+      <nav class="navbar navbar-dark bg-dark mb-4 p-3">
+      
+        <!-- Collapse button -->
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+          aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
+        <h3 style="position:relative; left: 42.5%; color: #fff;">Best Fit</h2>
+
+        <a href="login" class="ml-auto mr-4" style="color:#fff; text-decoration: none;">Log In</a>
+        <a href="#"> 
+          <img src="../public/images/cart.jpg" style="height:40px">
+        </a>
+        
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+      
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Orders</a>
+            </li>
+          </ul>
+          <!-- Links -->
+      
+        </div>
+        <!-- Collapsible content -->
+      
+      </nav>
+      <!--/.Navbar-->
+  </header>
+<div class="container-fluid">
+  <div class="row">
+    <main role="main" class="col-md-9 ml-sm-auto mr-sm-auto col-lg-10 px-4 mt-2" style="width:100%">
+
+        <h4 class="font-weight-light text-center text-lg-left mt-5 mb-4">Most Popular Dresses</h4>
+        <!-- dress items using ejs templating -->
+        <div class="row text-center text-lg-left">
+          <% for (var item of items[0]) {%>
+              <div class="col-lg-3 col-md-4 col-6 text-center">
+                <a href="item?n=<%= item.name%>" class="d-block mb-0 h-90">
+                  <img class="img-fluid img-thumbnail" src="<%= item.src %>" style="height: 240px" alt="">
+                </a>
+                <p><%= item.name%></p>
+                
+                <p>$<%= item.price %></p>
+                
+              </div>
+          <% } %>
+        </div>
+
+        <hr class="mt-5 mb-3">
+
+        <h4 class="font-weight-light text-center text-lg-left mt-4 mb-4">Dress Selection</h4>
+
+        <!-- dress items using ejs templating -->
+          <% for (var arr of items) {%>
+            <div class="row mt-5 md-5 text-center text-lg-left">
+            <% for (var item of arr) {%>
+              <div class="col-lg-3 col-md-4 col-6 text-center">
+                <a href="item?n=<%= item.name%>" class="d-block mb-0 h-90">
+                  <img class="img-fluid img-thumbnail" src="<%= item.src %>" style="height: 240px" alt="">
+                </a>
+                <p><%= item.name%></p>
+                
+                <p>$<%= item.price%></p>
+              </div>
+            <% } %>
+            </div>
+          <% } %>
+    </main>
+
+   
+
+  </div>
+
+</div>
+</body>
+
+</html>
