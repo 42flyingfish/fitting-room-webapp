@@ -16,8 +16,8 @@ form{
     justify-content: center;
     flex-direction: column;
     
-    border-radius:10px;
-    border:2px solid #000;
+    border-radius:7px;
+    border:1.5px solid #333;
     
 }
 form > *{

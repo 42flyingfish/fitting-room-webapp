@@ -47,43 +47,21 @@ var con = mysql.createConnection({
 
 con.connect();
 /*
-* renders webstore
-*/
-app.get("/", (req, res) => {
-    con.query("SELECT * FROM dress_info;",(err,result) => {
-        if(err) throw err;
+app.post("/order", (req, res) => {
+    const queryObject = url.parse(req.url, true).query;
+    con.query("SELECT * FROM dress_info WHERE name=?;", queryObjec.n, (err, result) => {
+        const dress = result[0];
+        con.query("INSERT INTO order(order_id, name, price, username) VALUES (?, ?, ?, ?);",
+        [, dress.name, dress.price, ], (res, req) => {
 
-        let arr = [];
-        let dress_info = [];
-        for(let i = 0; i < result.length; i++) {
-            arr.push(result[i]);
-            if((i % 3  == 0 && i != 0) || i == result.length - 1) {
-                dress_info.push(arr);
-                arr = []
-            }
-
-        }
-        res.render("index", {items: dress_info});
-
+        });
     });
 });
+*/
 /*
 *	renders item view
 */
-app.get("/item", (req, res) => {
-    const queryObject = url.parse(req.url, true).query;
-    con.query("SELECT * FROM dress_info WHERE name=?;",queryObject.n, (err, result) => {
-        if(err) throw err;
-        res.render("item", {
-           dress: {
-                src: result[0].src,
-                name: result[0].name,
-                price: result[0].price
-            }
-        });
-    });
-    
-});
+
 /*
 * creates a user if one does not already exist
 */
@@ -140,17 +118,59 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 });
 */
 app.get("/", (req, res) => {
-	res.render("index", {});
-	
+	con.query("SELECT * FROM dress_info;",(err,result) => {
+        if(err) throw err;
+
+        let arr = [];
+        let dress_info = [];
+        for(let i = 0; i < result.length; i++) {
+            arr.push(result[i]);
+            if((i % 3  == 0 && i != 0) || i == result.length - 1) {
+                dress_info.push(arr);
+                arr = []
+            }
+
+        }
+        res.render("index", {items: dress_info});
+
+    });
 });
 app.get("/item", (req, res) => {
-	res.render("item", {});
+    const queryObject = url.parse(req.url, true).query;
+    if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
+	    con.query("SELECT * FROM dress_info WHERE name=?;",queryObject.n, (err, result) => {
+	        if(err) throw err;
+	        res.render("item", {
+	           dress: {
+	                src: result[0].src,
+	                name: result[0].name,
+	                price: result[0].price
+	            }
+	        });
+	    });
+    }
+    else{
+    	res.send("Page not found");
+    	res.end();
+    }
 });
 app.get("/login", (req, res) => {
 	res.render("login", {});
 });
 app.get("/dress", (req, res) => {
-	res.render("dress", {});
+	const queryObject = url.parse(req.url, true).query;
+	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
+		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
+			if(err) throw err;
+			res.render("dress", {
+				src: result[0].src
+			});
+		});	
+	}
+	else{
+		res.send("Page not found");
+		res.end();
+	}
 });
 
 app.get("/signup", (req, res) => {
