@@ -2,11 +2,12 @@ const express = require("express");
 const multer  = require('multer');
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
-const expressValidator = require("express-validator");
-const expressSession = require("express-session");
+const session = require("express-session");
 const path = require("path");
 const cors = require("cors");
 const url = require("url");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 // Setting for how multer will handle the files
 const dest = multer.diskStorage({
@@ -21,7 +22,7 @@ const dest = multer.diskStorage({
                 cb(null, file.fieldname + '-' + file.originalname)
         }
 });
-const upload = multer({ storage: dest })
+const upload = multer({ storage: dest });
 const upload1 = multer();
 const app = express();
 const port = 3000;
@@ -30,7 +31,19 @@ const router = express.Router();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname+"/"));
-app.use(expressSession({secret: "max", saveUninitialized: false, resave: false}));
+
+app.use(morgan("dev"));
+app.use(cookieParser());
+app.use(session({
+    cookie: {
+    	path: "/",
+    	httpOnly: false,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24
+    },
+    secret: "abc123"
+}));
+
 app.use(cors());
 
 app.set("views", path.join(__dirname, "views"));
@@ -69,7 +82,7 @@ app.post("/login", upload1.none(), (req, res, next) => {
 	let name 	 = req.body.name,
 		username = req.body.username,
 		password = req.body.password;
-	console.log(username,password);
+	
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
 
@@ -81,7 +94,7 @@ app.post("/login", upload1.none(), (req, res, next) => {
 		}
 		else{
 			res.status(200);
-			res.end("Username already exists, choose another username.");
+			res.end("100");
 		}
 	});
 	
@@ -108,6 +121,7 @@ app.get("/dress", (req, res) => {
 */
 app.get("/dress", (req, res, next) => {
 	const queryObject = url.parse(req.url, true).query;
+	console.log(req.session.user);
 	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
 			if(err) throw err;
@@ -125,9 +139,9 @@ app.get("/dress", (req, res, next) => {
 app.post("/", upload1.none(), function (req, res, next) {
 	let username = req.body.username,
 		password = req.body.password;
-
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
+		req.session.user = row[0];
 		if(!row.length){
 			res.status(200);
 			res.end("The information entered is incorrect.");
