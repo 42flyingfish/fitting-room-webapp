@@ -13,24 +13,23 @@
                 $("#submit-btn").click(function(e){
                     e.preventDefault();
                     
-                    $.post("/dress",{
+                    $.post("/",{
                         username: $("#username").val(),
                         password: $("#password").val()
                     },(data, status) =>{
                         
                         if(data === "The information entered is incorrect."){
                             $("#angryText").text(data);
-                            
                         }
                         else{
-                            $(location).attr("href","http://localhost:3000/dress");
+                            $(location).attr("href","http://localhost:3000/");
                         }
                     });
                 });
             });
         </script>
         <!--user form-->
-        <form  method="post" action="/dress" enctype="multipart/form-data" id="usrForm">
+        <form  method="POST" action="/" enctype="multipart/form-data" id="usrForm">
             <h1>Login</h1>
 
             <input name="username" id="username" class="txtfield" type="text" placeholder="Enter your username">

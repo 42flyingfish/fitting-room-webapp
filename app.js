@@ -87,11 +87,45 @@ app.post("/login", upload1.none(), (req, res, next) => {
 	
 });
 /*
+app.get("/dress", (req, res) => {
+	const queryObject = url.parse(req.url, true).query;
+	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
+		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
+			if(err) throw err;
+			res.render("dress", {
+				src: result[0].src
+			});
+		});	
+	}
+	else{
+		res.send("Page not found");
+		res.end();
+	}
+});
+*/
+/*
 * checks if user account exists and the password matches the username continue to app, if not block user from entering
 */
-app.post('/dress',upload1.none(), function (req, res, next) {
+app.get("/dress", (req, res, next) => {
+	const queryObject = url.parse(req.url, true).query;
+	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
+		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
+			if(err) throw err;
+			res.render("dress", {
+				src: result[0].src
+			});
+		});	
+	}
+	else{
+		res.send("page not found");
+		res.end();
+	}
+	
+})
+app.post("/", upload1.none(), function (req, res, next) {
 	let username = req.body.username,
 		password = req.body.password;
+
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
 		if(!row.length){
@@ -99,7 +133,7 @@ app.post('/dress',upload1.none(), function (req, res, next) {
 			res.end("The information entered is incorrect.");
 		}
 		else{
-			res.redirect("/dress");
+			res.redirect("/login");
 		}
 
 	});
@@ -157,21 +191,7 @@ app.get("/item", (req, res) => {
 app.get("/login", (req, res) => {
 	res.render("login", {});
 });
-app.get("/dress", (req, res) => {
-	const queryObject = url.parse(req.url, true).query;
-	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
-		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
-			if(err) throw err;
-			res.render("dress", {
-				src: result[0].src
-			});
-		});	
-	}
-	else{
-		res.send("Page not found");
-		res.end();
-	}
-});
+
 
 app.get("/signup", (req, res) => {
 	res.render("signup", {});
