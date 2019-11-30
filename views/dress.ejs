@@ -73,16 +73,12 @@
 
       
 
-  	  <div class="container w-75 float-right"  style="height: 100vh; overflow: hidden;">
-        <div class="row" style="height:100vh">
-          <div class="col-9 mx-auto" style="height: 100vh;">
-            <canvas id="canvasOutput" style="height:400px;"></canvas> 
-            <img id="dress-img" class="" src="<%= src %>" style="display:none; height:400px;"/>
-            <img id="model-img" class="" src="" style="display:none; height:400px; "/>
-          </div>
-        </div>
-  	  </div>
+            <canvas id="canvasOutput" style="height:400px;position:absolute;"></canvas>
+            
+             
+            <img id="dress-img" class="" src="<%= src %>" style="position:relative; display:none; height:400px;"/>
 
+              <img id="model-img" class="" src="" style="position:relative;display:none; height:400px"/>
 <!--
   	<div id="right-module">
   	  <h3>Dress Library</h3>

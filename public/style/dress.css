@@ -54,7 +54,7 @@ h4 {
   width: 75%;
   overflow: hidden;
 }
-
+/*
 #mid-module img {
   margin-left: auto;
   margin-right: auto;
@@ -64,7 +64,7 @@ h4 {
   position: relative;
   margin-top: -320px;
 }
-
+*/
 #right-module {
   float: right;
   width: 20%;
@@ -73,7 +73,7 @@ h4 {
   position: relative;
   height: 650px;
 }
-
+/*
 #dress-container {
   margin-left: 50%;
   margin-right: auto;
@@ -88,3 +88,4 @@ h4 {
   display: block;
   width: 50%;
 }
+*/

@@ -167,6 +167,9 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 
 });
 */
+function userCheck(text, link){
+	
+}
 app.get("/", (req, res) => {
 	con.query("SELECT * FROM dress_info;",(err,result) => {
         if(err) throw err;
@@ -181,7 +184,16 @@ app.get("/", (req, res) => {
             }
 
         }
-        res.render("index", {items: dress_info});
+        const user = req.session.user;
+        let text = "Log In", link = "login";
+        
+        if(user !== undefined){
+        	text = "Log Out";
+        	link = "logout";
+        }
+        
+
+        res.render("index", {items: dress_info, login: text, link: link});
 
     });
 });
@@ -204,10 +216,37 @@ app.get("/item", (req, res) => {
     	res.end();
     }
 });
+app.get("/account", (req, res) => {
+	const user = req.session.user;
+	console.log(user);
+	let text = "Log In", link = "login";
+	if(user !== undefined){
+		text = "Log Out";
+		link = "logout";
+        
+		res.render("account", {
+			name: user.name,
+			username: user.username,
+			password: user.password,
+			dress_choice: user.dress_choice,
+			dress_size: user.dress_size,
+			login: text,
+			link: link
+
+		});	
+	}
+	else{
+		res.redirect("/login");
+	}
+	
+});
 app.get("/login", (req, res) => {
 	res.render("login", {});
 });
-
+app.get("/logout", (req, res) =>{
+	req.session.destroy();
+	res.redirect("/");
+});
 
 app.get("/signup", (req, res) => {
 	res.render("signup", {});
