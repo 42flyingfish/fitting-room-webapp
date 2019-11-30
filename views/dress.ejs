@@ -11,17 +11,21 @@
   <!--For Roboto-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="public/style/dress.css"> <!--import external css-->
-  <h1 id="webtitle">Bridal Fitter</h1>
 </head>
 
 <body>
 <div id="wrapper">
-    <div id="left-module">
+  <div class="container" >
+      <h1 id="webtitle">Bridal Fitter</h1>
+      <h3 id="rec-size" style="">Model Size</h3>
+  </div>
+
+    <div id="left-module" class="container w-25 float-left" style="border-right: 1px solid #ddd; height: 650px;">
       <form action='/dress' method="post" enctype="multipart/form-data" class="upload">
         <h3>Upload your picture</h3>
 	   <!-- <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />-->
 
-		   <input class="mt-3" type="file" id="fileInput" name="file">
+		   <input class="my-3" type="file" id="fileInput" name="file">
 	<!--<button id="submit">Submit</button>-->
       </form> <!--upload-->
       <h3 class="mt-4">Measurements</h3>
@@ -63,21 +67,21 @@
 	    </tr>
 	  </table>
   	
-  	  <button type="button" class="btn btn-dark mt-4" onclick="model()">Get Recommended Size</button><br><br>
+  	  <button type="button" class="btn btn-primary my-5" style="border-radius: 30px; font-size: 1.2em;" onclick="model()">Get Recommended Size</button><br><br>
 
     </div> <!--left-module-->
 
-    <div id="mid-module">
-      <h3 id="rec-size" style="position:absolute; left: 47%;">Model Size</h3>
+      
 
-	  <table id="model-container">
-		
-		  <canvas id="canvasOutput" style="height:400px;"></canvas>	
-		  <img id="dress-img" class="" src="<%= src %>" style="display:none; height:400px;"/>
-		<img id="model-img" class="" src="" style="display:none; height:400px;"/>
-	  </table> <!--model-container-->
-
-    </div> <!--mid-module-->
+  	  <div class="container w-75 float-right"  style="height: 100vh; overflow: hidden;">
+        <div class="row" style="height:100vh">
+          <div class="col-9 mx-auto" style="height: 100vh;">
+            <canvas id="canvasOutput" style="height:400px;"></canvas> 
+            <img id="dress-img" class="" src="<%= src %>" style="display:none; height:400px;"/>
+            <img id="model-img" class="" src="" style="display:none; height:400px; "/>
+          </div>
+        </div>
+  	  </div>
 
 <!--
   	<div id="right-module">

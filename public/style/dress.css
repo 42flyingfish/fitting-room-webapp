@@ -7,9 +7,10 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Open Sans', sans-serif;*/
   color: #aaaaaa;
   overflow: hidden;
+
 }
 
 h3 {
@@ -27,7 +28,7 @@ h4 {
 #wrapper div {
   text-align: center;
 }
-
+/*
 #left-module {
   float: left;
   border-right: 1px solid #dddddd;
@@ -36,7 +37,7 @@ h4 {
   overflow: hidden;
   position: relative;
 }
-
+*/
 #measurements {
   width: 50%;
   margin-left: auto;

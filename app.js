@@ -85,8 +85,10 @@ app.post("/login", upload1.none(), (req, res, next) => {
 	
 	con.query("SELECT * FROM users WHERE username=?;",username, (err, row) => {
 		if(err) throw err;
-
-		if(!row.length){
+		if(name === "" || username === "" || password === ""){
+			res.end("200");
+		}
+		else if(!row.length){
 			con.query("INSERT INTO users(name, username, password) VALUES(?, ?, ?);", [name, username,password], (err, result) =>{
 				if(err) throw err;
 			});
