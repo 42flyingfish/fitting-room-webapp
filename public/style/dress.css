@@ -54,6 +54,17 @@ h4 {
   width: 75%;
   overflow: hidden;
 }
+#dress-img{
+  position: absolute;
+  left: 38.55%;
+  top:25%;
+}
+#canvasOutput{
+  position: absolute;
+  left: 38.55%;
+  top:15%;
+}
+
 /*
 #mid-module img {
   margin-left: auto;
