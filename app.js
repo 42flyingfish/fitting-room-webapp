@@ -34,16 +34,17 @@ app.use(express.static(__dirname+"/"));
 
 app.use(morgan("dev"));
 app.use(cookieParser());
+/*
 app.use(session({
     cookie: {
     	path: "/",
     	httpOnly: false,
-        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24
     },
     secret: "abc123"
 }));
-
+*/
+app.use(session({secret: "ssshhhhh",saveUninitialized: true,resave: true}));
 app.use(cors());
 
 app.set("views", path.join(__dirname, "views"));
@@ -59,22 +60,25 @@ var con = mysql.createConnection({
 });
 
 con.connect();
-/*
-app.post("/order", (req, res) => {
-    const queryObject = url.parse(req.url, true).query;
-    con.query("SELECT * FROM dress_info WHERE name=?;", queryObjec.n, (err, result) => {
-        const dress = result[0];
-        con.query("INSERT INTO order(order_id, name, price, username) VALUES (?, ?, ?, ?);",
-        [, dress.name, dress.price, ], (res, req) => {
 
-        });
-    });
+app.get("/order", (req, res) => {
+	const user = req.session.user;
+    let text = "Log In", link = "login";
+        
+    if(user !== undefined){
+        text = "Log Out";
+        link = "logout";
+        res.render("order", {
+			login: text,
+			link: link
+		});
+    }
+    else{
+    	res.redirect("/login");
+    }
+        
+
 });
-*/
-/*
-*	renders item view
-*/
-
 /*
 * creates a user if one does not already exist
 */
@@ -102,25 +106,9 @@ app.post("/login", upload1.none(), (req, res, next) => {
 	
 });
 /*
-app.get("/dress", (req, res) => {
-	const queryObject = url.parse(req.url, true).query;
-	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
-		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
-			if(err) throw err;
-			res.render("dress", {
-				src: result[0].src
-			});
-		});	
-	}
-	else{
-		res.send("Page not found");
-		res.end();
-	}
-});
-*/
-/*
 * checks if user account exists and the password matches the username continue to app, if not block user from entering
 */
+
 app.get("/dress", (req, res, next) => {
 	const queryObject = url.parse(req.url, true).query;
 	console.log(req.session.user);
@@ -128,7 +116,8 @@ app.get("/dress", (req, res, next) => {
 		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
 			if(err) throw err;
 			res.render("dress", {
-				src: result[0].src
+				src: result[0].src,
+				name: result[0].name
 			});
 		});	
 	}
@@ -137,10 +126,11 @@ app.get("/dress", (req, res, next) => {
 		res.end();
 	}
 	
-})
+});
 app.post("/", upload1.none(), function (req, res, next) {
 	let username = req.body.username,
 		password = req.body.password;
+
 	con.query("SELECT * FROM users WHERE username=? AND password=?",[username,password], (err, row) => {
 		if(err) throw err;
 		req.session.user = row[0];
@@ -167,10 +157,9 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 
 });
 */
-function userCheck(text, link){
-	
-}
 app.get("/", (req, res) => {
+	//console.log(ssn.cart);
+	console.log(req.session.user);
 	con.query("SELECT * FROM dress_info;",(err,result) => {
         if(err) throw err;
 
@@ -198,6 +187,7 @@ app.get("/", (req, res) => {
     });
 });
 app.get("/item", (req, res) => {
+	console.log(req.session.user);
     const queryObject = url.parse(req.url, true).query;
     if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 	    con.query("SELECT * FROM dress_info WHERE name=?;",queryObject.n, (err, result) => {
@@ -219,6 +209,7 @@ app.get("/item", (req, res) => {
 app.get("/account", (req, res) => {
 	const user = req.session.user;
 	console.log(user);
+	console.log(req.session);
 	let text = "Log In", link = "login";
 	if(user !== undefined){
 		text = "Log Out";
@@ -240,6 +231,40 @@ app.get("/account", (req, res) => {
 	}
 	
 });
+
+app.get("/basket", (req, res) => {
+	
+	//const queryObject = url.parse(req.url, true).query;
+	const user = req.session.user;
+	console.log(user);
+	/*
+	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
+		con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, result) => { 
+			if(err) throw err;
+			const u_id = Math.floor(Math.random() * Math.pow(10, 9));
+			/*
+			con.query("INSERT INTO cart(id, name, price, username) VALUES(?, ?, ?, (\
+				SELECT username FROM users WHERE username=?));", 
+				[u_id, result[0].name, result[0].price, user.username], (err, result) => {
+					if(err) throw err;
+					console.log("success");
+			});
+			
+		});
+	}
+	*/
+    let text = "Log In", link = "login";
+        
+	if(user !== undefined){
+	    text = "Log Out";
+	    link = "logout";
+	}
+	res.render("basket", {
+		login: text,
+		link: link
+	});
+});
+
 app.get("/login", (req, res) => {
 	res.render("login", {});
 });
@@ -251,7 +276,6 @@ app.get("/logout", (req, res) =>{
 app.get("/signup", (req, res) => {
 	res.render("signup", {});
 });
-
 
 
 app.listen(process.env.port || 3000);

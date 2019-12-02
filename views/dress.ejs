@@ -11,6 +11,7 @@
   <!--For Roboto-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="public/style/dress.css"> <!--import external css-->
+  <title> Dress Fitter</title>
 </head>
 
 <body>
@@ -67,8 +68,10 @@
 	    </tr>
 	  </table>
   	
-  	  <button type="button" class="btn btn-primary my-5" style="border-radius: 30px; font-size: 1.2em;" onclick="model()">Get Recommended Size</button><br><br>
-
+  	  <button type="button" class="btn btn-primary mt-5 mb-4" style="border-radius: 30px; font-size: 1.2em;" onclick="model()">Get Recommended Size</button><br><br>
+      <a href="basket?n=<%=name%>">
+        <button type="button" class="btn btn-primary" style="border-radius: 30px; font-size: 1.2em">Add To Cart</button>
+      </a>
     </div> <!--left-module-->
 
       
@@ -78,7 +81,7 @@
              
             <img id="dress-img" class="" src="<%= src %>" style="position:relative; display:none; height:400px;"/>
 
-              <img id="model-img" class="" src="" style="position:relative;display:none; height:400px"/>
+            <img id="model-img" class="" src="" style="position:relative;display:none; height:400px"/>
 <!--
   	<div id="right-module">
   	  <h3>Dress Library</h3>
