@@ -59,15 +59,16 @@
   </header>
     <main class="container">
       <h3>Cart</h3>
+      <% for(var item of cart_items) {%>
       <div class="item row mt-3">
         <div class="close-icon col-sm-2"></div>
         <div class="col-sm-2 mt-3">
-          <img  src="../public/images/1.png" style="width:80px">
+          <img  src="<%=item.src%>" style="width:80px">
         </div>
-        <p class="col-sm-2 mt-4">dress name</p>
-        <p class="col-sm-4 mt-4" style="">quantity</p>
-        <p class="col-sm-2 mt-4" style="">price</p>
+        <p class="col-sm-6 mt-4"><%= item.name %><dress name></p>
+        <p class="col-sm-2 mt-4"><%= item.price%></p>
       </div>
+      <% } %>
     </main>
   </body>
 </html>

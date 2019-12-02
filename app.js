@@ -117,7 +117,8 @@ app.get("/dress", (req, res, next) => {
 			if(err) throw err;
 			res.render("dress", {
 				src: result[0].src,
-				name: result[0].name
+				name: result[0].name,
+				p_id: Math.floor(Math.random() * Math.pow(10, 9))
 			});
 		});	
 	}
@@ -234,35 +235,52 @@ app.get("/account", (req, res) => {
 
 app.get("/basket", (req, res) => {
 	
-	//const queryObject = url.parse(req.url, true).query;
+	const queryObject = url.parse(req.url, true).query;
 	const user = req.session.user;
 	console.log(user);
-	/*
+	let text = "Log In", link = "login";
+        
+	if(user !== undefined){
+		text = "Log Out";
+		link = "logout";
+	}
 	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
-		con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, result) => { 
+		con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
 			if(err) throw err;
-			const u_id = Math.floor(Math.random() * Math.pow(10, 9));
-			/*
-			con.query("INSERT INTO cart(id, name, price, username) VALUES(?, ?, ?, (\
-				SELECT username FROM users WHERE username=?));", 
-				[u_id, result[0].name, result[0].price, user.username], (err, result) => {
-					if(err) throw err;
-					console.log("success");
+			con.query("SELECT * FROM cart WHERE id=?", queryObject.p_id, (err, r2) => {
+				if(r2.length == 0){
+					con.query("INSERT INTO cart(id, name, price,src, username) VALUES(?, ?, ?, ?, (\
+					SELECT username FROM users WHERE username=?));", 
+					[queryObject.p_id, r1[0].name, r1[0].price, r1[0].src, user.username], (err, r3) => {
+						if(err) throw err;
+					});
+					
+					con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
+						console.log(r4);
+						
+						res.render("basket", {
+							login: text,
+							link: link,
+							cart_items: r4
+						});
+					});
+
+				}
 			});
 			
 		});
 	}
-	*/
-    let text = "Log In", link = "login";
-        
-	if(user !== undefined){
-	    text = "Log Out";
-	    link = "logout";
+	else{
+		con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
+			console.log(r4);
+			res.render("basket", {
+				login: text,
+				link: link,
+				cart_items: r4
+			});
+		});
 	}
-	res.render("basket", {
-		login: text,
-		link: link
-	});
+    
 });
 
 app.get("/login", (req, res) => {
