@@ -60,7 +60,13 @@ var con = mysql.createConnection({
 });
 
 con.connect();
-
+function sum(arr){
+	let total = 0;
+	for(item of arr){
+		total += item.price;
+	}
+	return total;
+}
 app.get("/order", (req, res) => {
 	const user = req.session.user;
     let text = "Log In", link = "login";
@@ -243,44 +249,48 @@ app.get("/basket", (req, res) => {
 	if(user !== undefined){
 		text = "Log Out";
 		link = "logout";
-	}
-	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
-		con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
-			if(err) throw err;
-			con.query("SELECT * FROM cart WHERE id=?", queryObject.p_id, (err, r2) => {
-				if(r2.length == 0){
-					con.query("INSERT INTO cart(id, name, price,src, username) VALUES(?, ?, ?, ?, (\
-					SELECT username FROM users WHERE username=?));", 
-					[queryObject.p_id, r1[0].name, r1[0].price, r1[0].src, user.username], (err, r3) => {
-						if(err) throw err;
-					});
-					
-					con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
-						console.log(r4);
-						
-						res.render("basket", {
-							login: text,
-							link: link,
-							cart_items: r4
+	
+		if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
+			con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
+				if(err) throw err;
+				con.query("SELECT * FROM cart WHERE id=?", queryObject.p_id, (err, r2) => {
+					if(r2.length == 0){
+						con.query("INSERT INTO cart(id, name, price,src, username) VALUES(?, ?, ?, ?, (\
+						SELECT username FROM users WHERE username=?));", 
+						[queryObject.p_id, r1[0].name, r1[0].price, r1[0].src, user.username], (err, r3) => {
+							if(err) throw err;
 						});
-					});
+						
+						con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
+							
+							res.render("basket", {
+								login: text,
+								link: link,
+								cart_items: r4,
+								total: sum(r4)
+							});
+						});
 
-				}
+					}
+				});
+				
 			});
-			
-		});
+		}
+		else{
+			con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
+				console.log(r4);
+				res.render("basket", {
+					login: text,
+					link: link,
+					cart_items: r4,
+					total: sum(r4)
+				});
+			});
+		}
 	}
 	else{
-		con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
-			console.log(r4);
-			res.render("basket", {
-				login: text,
-				link: link,
-				cart_items: r4
-			});
-		});
+		res.redirect("/login");
 	}
-    
 });
 
 app.get("/login", (req, res) => {
@@ -295,6 +305,17 @@ app.get("/signup", (req, res) => {
 	res.render("signup", {});
 });
 
-
+app.get("/complete", (req, res) => {
+	const user = req.session.user;
+	console.log(user);
+	res.render("complete", {});
+});
+app.post("/basket", (req, res) => {
+	const id = req.body.id;
+	con.query("DELETE FROM cart WHERE id=?",id, (err, result) => {
+		if(err) throw err;
+		res.send();
+	});
+});
 app.listen(process.env.port || 3000);
 console.log("Running at port 3000");
