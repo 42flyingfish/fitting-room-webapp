@@ -1,3 +1,4 @@
+
 #webtitle {
   text-align: center;
   font-size: 50px;
@@ -6,8 +7,10 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Open Sans', sans-serif;*/
   color: #aaaaaa;
+  overflow: hidden;
+
 }
 
 h3 {
@@ -25,16 +28,16 @@ h4 {
 #wrapper div {
   text-align: center;
 }
-
+/*
 #left-module {
   float: left;
   border-right: 1px solid #dddddd;
   height: 650px;
-  width: 20%;
+  width: 25%;
   overflow: hidden;
   position: relative;
 }
-
+*/
 #measurements {
   width: 50%;
   margin-left: auto;
@@ -48,10 +51,21 @@ h4 {
 #mid-module {
   float: left;
   height: 650px;
-  width: 59%;
+  width: 75%;
   overflow: hidden;
 }
+#dress-img{
+  position: absolute;
+  left: 38.55%;
+  top:25%;
+}
+#canvasOutput{
+  position: absolute;
+  left: 38.55%;
+  top:15%;
+}
 
+/*
 #mid-module img {
   margin-left: auto;
   margin-right: auto;
@@ -61,7 +75,7 @@ h4 {
   position: relative;
   margin-top: -320px;
 }
-
+*/
 #right-module {
   float: right;
   width: 20%;
@@ -70,9 +84,9 @@ h4 {
   position: relative;
   height: 650px;
 }
-
+/*
 #dress-container {
-  margin-left: auto;
+  margin-left: 50%;
   margin-right: auto;
   overflow: auto;
   max-height: 450px;
@@ -85,3 +99,4 @@ h4 {
   display: block;
   width: 50%;
 }
+*/

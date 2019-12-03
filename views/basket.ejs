@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../public/scripts/menu.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../public/style/menu.css">
+    <link rel="stylesheet" type="text/css" href="../public/style/order.css">
+    <title>Cart</title>
+  </head>
+  <body>
+      <header>
+          <!--Navbar-->
+      <nav class="navbar navbar-dark bg-dark mb-4 p-3">
+      
+        <!-- Collapse button -->
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+          aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
+        <h3 style="position:relative; left: 37%; color: #fff;">Bridal Dress Store</h2>
+
+        <a href="<%= link %>" class="ml-auto mr-4" style="color:#fff; text-decoration: none;"><%= login%></a>
+        <a href="#"> 
+          <img src="../public/images/cart.jpg" style="height:40px">
+        </a>
+        
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+      
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order">Orders</a>
+            </li>
+          </ul>
+          <!-- Links -->
+      
+        </div>
+        <!-- Collapsible content -->
+      
+      </nav>
+      <!--/.Navbar-->
+  </header>
+    <main class="container">
+      <h3>Cart</h3>
+      <% for(var item of cart_items) {%>
+      <div class="item row mt-3">
+        <div class="close-icon col-sm-2"></div>
+        <div class="col-sm-2 mt-3">
+          <img  src="<%=item.src%>" style="width:80px">
+        </div>
+        <p class="col-sm-6 mt-4"><%= item.name %><dress name></p>
+        <p class="col-sm-2 mt-4"><%= item.price%></p>
+      </div>
+      <% } %>
+    </main>
+  </body>
+</html>

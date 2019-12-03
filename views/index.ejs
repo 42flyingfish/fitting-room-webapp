@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="public/scripts/menu.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="../public/style/store.css">
+  <link rel="stylesheet" type="text/css" href="../public/style/menu.css">
+  
+  <title>Dress Store</title>
+
+</head>
+
+<body>
+  <header>
+          <!--Navbar-->
+      <nav class="navbar navbar-dark bg-dark mb-4 p-3">
+      
+        <!-- Collapse button -->
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+          aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
+        <h3 style="position:relative; left: 37%; color: #fff;">Bridal Dress Store</h2>
+
+        <a href="<%= link %>" class="ml-auto mr-4" style="color:#fff; text-decoration: none;"><%= login%></a>
+        <a href="basket"> 
+          <img src="../public/images/cart.jpg" style="height:40px">
+        </a>
+        
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+      
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order">Orders</a>
+            </li>
+          </ul>
+          <!-- Links -->
+      
+        </div>
+        <!-- Collapsible content -->
+      
+      </nav>
+      <!--/.Navbar-->
+  </header>
+<div class="container-fluid">
+  <div class="row">
+    <main role="main" class="col-md-9 ml-sm-auto mr-sm-auto col-lg-10 px-4 mt-2" style="width:100%">
+
+        <h4 class="font-weight-light text-center text-lg-left mt-5 mb-4">Most Popular Dresses</h4>
+        <!-- dress items using ejs templating -->
+        <div class="row text-center text-lg-left">
+          <% for (var item of items[0]) {%>
+              <div class="col-lg-3 col-md-4 col-6 text-center">
+                <a href="item?n=<%= item.name%>" class="d-block mb-0 h-90">
+                  <img class="img-fluid img-thumbnail" src="<%= item.src %>" style="height: 240px" alt="">
+                </a>
+                <p><%= item.name%></p>
+                
+                <p>$<%= item.price %></p>
+                
+              </div>
+          <% } %>
+        </div>
+
+        <hr class="mt-5 mb-3">
+
+        <h4 class="font-weight-light text-center text-lg-left mt-4 mb-4">Dress Selection</h4>
+
+        <!-- dress items using ejs templating -->
+          <% for (var arr of items) {%>
+            <div class="row mt-5 md-5 text-center text-lg-left">
+            <% for (var item of arr) {%>
+              <div class="col-lg-3 col-md-4 col-6 text-center">
+                <a href="item?n=<%= item.name%>" class="d-block mb-0 h-90">
+                  <img class="img-fluid img-thumbnail" src="<%= item.src %>" style="height: 240px" alt="">
+                </a>
+                <p><%= item.name%></p>
+                
+                <p>$<%= item.price%></p>
+              </div>
+            <% } %>
+            </div>
+          <% } %>
+    </main>
+
+   
+
+  </div>
+
+</div>
+</body>
+
+</html>

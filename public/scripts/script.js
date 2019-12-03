@@ -1,5 +1,5 @@
 // base path to dress.
-let currentDress = "images/dress1/";
+//let currentDress = "images/dress1/";
 
 
 /*
@@ -12,6 +12,10 @@ function model(){
   let chest = document.getElementById("chest_meas").selectedIndex;
   let waist = document.getElementById("waist_meas").selectedIndex;
   let hips = document.getElementById("hips_meas").selectedIndex;
+
+  
+  document.getElementById("dress-img").style.display = "block";
+  /*document.getElementById("model-img").style.display("block");*/
 
   let bodAvg = parseInt((chest+waist+hips)/3, 10);
 
@@ -42,9 +46,11 @@ function model(){
       break;
   }
 }
+
 /*
 * Sets model picture from specified file uploaded
 */
+/*
 function setModel() {
   let imgElement = document.getElementById("model-img");
   let inputElement = document.getElementById("chosenFile");
@@ -52,17 +58,21 @@ function setModel() {
   imgElement.src = filename;
   document.getElementById('model-img').style.display='block';
 }
+*/
 /*
 * Dresses model with current dress
 */
+/*
 function setDress(dressNum) {
   currentDress = "public/images/dress"+dressNum+"/";
   document.getElementById('dress-img').src = currentDress + "dress-crop.png";
   document.getElementById('dress-img').style.display='block';
 }
+*/
 /*
 * Adds the images to the dress library
 */
+/*
 function addImages() {
   for (let i = 1; i < 8; i++) {
     let dress = "public/images/dress"+i+"/dress-icon.png";
@@ -73,6 +83,7 @@ function addImages() {
     dressLib.appendChild(img);
   }
 }
+*/
 /*
 * Uploads image to the dress library - NOT DONE YET
 * Problem: Choose File only gets me image file name, not path to image file
@@ -83,6 +94,8 @@ function addImage() {
 /*
 * On loading the window add the images to the dress library.
 */
+/*
 window.onload = function() {
   addImages();
 };
+*/
