@@ -34,16 +34,6 @@ app.use(express.static(__dirname+"/"));
 
 app.use(morgan("dev"));
 app.use(cookieParser());
-/*
-app.use(session({
-    cookie: {
-    	path: "/",
-    	httpOnly: false,
-        maxAge: 1000 * 60 * 60 * 24
-    },
-    secret: "abc123"
-}));
-*/
 app.use(session({secret: "ssshhhhh",saveUninitialized: true,resave: true}));
 app.use(cors());
 
@@ -69,20 +59,23 @@ function sum(arr){
 }
 app.get("/order", (req, res) => {
 	const user = req.session.user;
-    let text = "Log In", link = "login";
-        
-    if(user !== undefined){
-        text = "Log Out";
-        link = "logout";
-        res.render("order", {
-			login: text,
-			link: link
-		});
-    }
-    else{
-    	res.redirect("/login");
-    }
-        
+	
+	con.query("SELECT * FROM orders WHERE username=?", user.username, (err, result) => {
+		let text = "Log In", link = "login";
+		
+		if(user !== undefined){
+			text = "Log Out";
+			link = "logout";
+			res.render("order", {
+				login: text,
+				link: link,
+				orders: result
+			});
+		}
+		else{
+			res.redirect("/login");
+		}
+	});
 
 });
 /*
@@ -249,15 +242,16 @@ app.get("/basket", (req, res) => {
 	if(user !== undefined){
 		text = "Log Out";
 		link = "logout";
-	
+		const d = new Date();
+		const date = d.getMonth() +"/" +d.getDay() +"/" +d.getFullYear();
 		if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 			con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
 				if(err) throw err;
 				con.query("SELECT * FROM cart WHERE id=?", queryObject.p_id, (err, r2) => {
 					if(r2.length == 0){
-						con.query("INSERT INTO cart(id, name, price,src, username) VALUES(?, ?, ?, ?, (\
-						SELECT username FROM users WHERE username=?));", 
-						[queryObject.p_id, r1[0].name, r1[0].price, r1[0].src, user.username], (err, r3) => {
+						con.query("INSERT INTO cart(id, name, price,src, username, ordered_at) VALUES(?, ?, ?, ?, (\
+						SELECT username FROM users WHERE username=?), ?);", 
+						[queryObject.p_id, r1[0].name, r1[0].price, r1[0].src, user.username, date], (err, r3) => {
 							if(err) throw err;
 						});
 						
@@ -307,12 +301,17 @@ app.get("/signup", (req, res) => {
 
 app.get("/complete", (req, res) => {
 	const user = req.session.user;
-	console.log(user);
+	con.query("INSERT INTO orders SELECT * FROM cart WHERE cart.username=?;", user.username, (err, result) => {
+		if(err) throw err;
+	});
+	con.query("DELETE FROM cart WHERE username=?", user.username, (err, result) => {
+		if(err) throw err;
+	});
 	res.render("complete", {});
 });
 app.post("/basket", (req, res) => {
 	const id = req.body.id;
-	con.query("DELETE FROM cart WHERE id=?",id, (err, result) => {
+	con.query("DELETE FROM cart WHERE id=?;",id, (err, result) => {
 		if(err) throw err;
 		res.send();
 	});

@@ -59,16 +59,18 @@
   </header>
     <main class="container">
       <h3>Orders</h3>
+      <% for(let order of orders) { %>
       <div class="item row mt-3">
         <!--<div class="close-icon col-sm-2"></div>-->
         <div class="col-sm-2 mt-3">
-          <img  src="../public/images/1.png" style="width:80px">
+          <img  src="<%= order.src %>" style="width:80px">
         </div>
-        <p class="col-sm-2 mt-4">dress name</p>
-        <p class="col-sm-2 mt-4" style="">quantity</p>
-        <p class="col-sm-2 mt-4" style="">price</p>
-        <p class="col-sm-2 mt-4" style="">date</p>
+        <p class="col-sm-2 mt-4"><%= order.name%></p>
+        <div class="col-sm-4 mt-4"></div>
+        <p class="col-sm-2 mt-4"><%= order.price %></p>
+        <p class="col-sm-2 mt-4"><%= order.ordered_at%></p>
       </div>
+      <%}%>
     </main>
   </body>
 </html>
