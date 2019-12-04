@@ -316,5 +316,37 @@ app.post("/basket", (req, res) => {
 		res.send();
 	});
 });
+
+app.get("/upload", (req, res) => {
+	res.render("upload");
+});
+app.post("/upload", (req, res) => {
+	let username = req.body.username,
+		password = req.body.password;
+	con.query("SELECT * FROM admin WHERE username=? AND password=?", [username, password], (err, result) => {
+		if(err) throw err;
+		if(result.length !== 0){
+			res.redirect("/upload");
+		}
+		else{
+			res.send("100");
+			res.end();
+		}
+	});
+});
+app.post("/photo/upload",upload.single("myImage"), (req, res, next) => {
+	const file = req.file
+	if (!file) {
+	  const error = new Error('Please upload a file');
+	  error.httpStatusCode = 400;
+	  return next(error);
+	}
+	res.send(file);
+});
+app.get("/admin", (req, res) => {
+
+	res.render("admin", {});
+});
+
 app.listen(process.env.port || 3000);
 console.log("Running at port 3000");
