@@ -85,14 +85,16 @@
           <% for (var arr of items) {%>
             <div class="row mt-5 md-5 text-center text-lg-left">
             <% for (var item of arr) {%>
-              <div class="col-lg-3 col-md-4 col-6 text-center">
-                <a href="item?n=<%= item.name%>" class="d-block mb-0 h-90">
-                  <img class="img-fluid img-thumbnail" src="<%= item.src %>" style="height: 240px" alt="">
-                </a>
-                <p><%= item.name%></p>
-                
-                <p>$<%= item.price%></p>
-              </div>
+              <% if(item !== undefined) { %>
+                <div class="col-lg-3 col-md-4 col-6 text-center">
+                  <a href="item?n=<%= item.name%>" class="d-block mb-0 h-90">
+                    <img class="img-fluid img-thumbnail" src="<%= item.src %>" style="height: 240px" alt="">
+                  </a>
+                  <p><%= item.name%></p>
+                  
+                  <p>$<%= item.price%></p>
+                </div>
+              <% } %>
             <% } %>
             </div>
           <% } %>

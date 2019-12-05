@@ -163,16 +163,24 @@ app.get("/", (req, res) => {
 	con.query("SELECT * FROM dress_info;",(err,result) => {
         if(err) throw err;
 
-        let arr = [];
-        let dress_info = [];
-        for(let i = 0; i < result.length; i++) {
-            arr.push(result[i]);
-            if((i % 3  == 0 && i != 0) || i == result.length - 1) {
-                dress_info.push(arr);
-                arr = []
-            }
 
-        }
+		const N = Math.ceil(result.length/4);
+		console.log(result.length);
+		let dress_info = new Array(N);
+
+		for(let i = 0; i < N; i++){
+			dress_info[i] = new Array(4);
+		}
+
+		let k = 0;
+		for(let i = 0; i < N; i++){
+			for(let j = 0; j < 4; j++){
+				if(k < result.length){
+					dress_info[i][j] = result[k++];
+					
+				}
+			}
+		}
         const user = req.session.user;
         let text = "Log In", link = "login";
         
@@ -243,7 +251,7 @@ app.get("/basket", (req, res) => {
 		text = "Log Out";
 		link = "logout";
 		const d = new Date();
-		const date = d.getMonth() +"/" +d.getDay() +"/" +d.getFullYear();
+		const date = (d.getMonth() + 1) +"/" +d.getDay() +"/" +d.getFullYear();
 		if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 			con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
 				if(err) throw err;
@@ -318,12 +326,19 @@ app.post("/basket", (req, res) => {
 });
 
 app.get("/upload", (req, res) => {
-	res.render("upload");
+	if(req.session.admin !== undefined){
+		res.render("upload");
+	}
+	else{
+		res.redirect("/admin");
+	}
 });
 app.post("/upload", (req, res) => {
+	
 	let username = req.body.username,
 		password = req.body.password;
-	con.query("SELECT * FROM admin WHERE username=? AND password=?", [username, password], (err, result) => {
+	req.session.admin = {username,password};
+	con.query("SELECT * FROM admin WHERE username=? AND password=?;", [username, password], (err, result) => {
 		if(err) throw err;
 		if(result.length !== 0){
 			res.redirect("/upload");
@@ -336,12 +351,20 @@ app.post("/upload", (req, res) => {
 });
 app.post("/photo/upload",upload.single("myImage"), (req, res, next) => {
 	const file = req.file
+	const price = req.body.price;
+	const name = req.body.name;
+	const src = path.join("../public/images", (file.fieldname + "-" + file.originalname));
+	console.log(src);
 	if (!file) {
 	  const error = new Error('Please upload a file');
 	  error.httpStatusCode = 400;
 	  return next(error);
 	}
-	res.send(file);
+	con.query("INSERT INTO dress_info(name, price, src) VALUES(?,?,?)", [name, price, src], (err, result) => {
+		if(err) throw err;
+
+	});
+	res.redirect("/upload");
 });
 app.get("/admin", (req, res) => {
 
