@@ -1,5 +1,9 @@
 // base path to dress.
+<<<<<<< HEAD
 //let currentDress = "images/dress1/";
+=======
+let currentDress = "images/dress1/";
+>>>>>>> master
 
 
 /*
@@ -98,4 +102,7 @@ function addImage() {
 window.onload = function() {
   addImages();
 };
+<<<<<<< HEAD
 */
+=======
+>>>>>>> master
