@@ -59,24 +59,25 @@ function sum(arr){
 }
 app.get("/order", (req, res) => {
 	const user = req.session.user;
-	
-	con.query("SELECT * FROM orders WHERE username=?", user.username, (err, result) => {
-		let text = "Log In", link = "login";
-		
-		if(user !== undefined){
-			text = "Log Out";
-			link = "logout";
+	if(user !== undefined){
+		text = "Log Out";
+		link = "logout";
+		con.query("SELECT * FROM orders WHERE username=?", user.username, (err, result) => {
+			let text = "Log In", link = "login";
+			
+			
+				
 			res.render("order", {
 				login: text,
 				link: link,
 				orders: result
 			});
-		}
-		else{
-			res.redirect("/login");
-		}
-	});
-
+			
+		});
+	}
+	else{
+		res.redirect("/login");
+	}
 });
 /*
 * creates a user if one does not already exist
@@ -243,7 +244,7 @@ app.get("/basket", (req, res) => {
 		text = "Log Out";
 		link = "logout";
 		const d = new Date();
-		const date = d.getMonth() +"/" +d.getDay() +"/" +d.getFullYear();
+		const date = (d.getMonth() + 1) +"/" +d.getDay() +"/" +d.getFullYear();
 		if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 			con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
 				if(err) throw err;
@@ -341,7 +342,7 @@ app.post("/photo/upload",upload.single("myImage"), (req, res, next) => {
 	  error.httpStatusCode = 400;
 	  return next(error);
 	}
-	res.send(file);
+	res.redirect("/upload");
 });
 app.get("/admin", (req, res) => {
 
