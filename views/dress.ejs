@@ -8,6 +8,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="../public/scripts/cv.js"></script>
   <script async src="../public/scripts/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
   <script src="../public/scripts/menu.js"></script>
   <script src="../public/scripts/script.js"></script> <!--import external javascript-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
@@ -18,7 +21,7 @@
 
   <link rel="stylesheet" type="text/css" href="../public/style/menu.css">
 
-  <title> Dress Fitter</title>
+  <title> Bridal Fitting Room</title>
 </head>
 
 <body>
@@ -32,7 +35,7 @@
           <div class="animated-icon1"><span></span><span></span><span></span></div>
         </button>
 
-        <!--<h3 style="position:relative; left: 37%; color: #fff;">Bridal Dress Store</h3>-->
+        <h1 style="position:relative; left: 35%; color: #fff;">Bridal Fitting Room</h1>
 
         <a href="<%= link %>" class="ml-auto mr-4" style="color:#fff; text-decoration: none;"><%= login%></a>
         <a href="basket"> 
@@ -64,23 +67,19 @@
 
 </header>
 <div id="wrapper">
-  <div class="container" >
-      <h1 id="webtitle">Bridal Fitter</h1>
-      <h3 id="rec-size">Model Size</h3>
-  </div>
-
-    <div id="left-module" class="container w-25 float-left" style="border-right: 1px solid #ddd; height: 74.8vh">
+    <div id="left-module" class="container w-25 float-left ml-3 pt-5" style="border-right: 1px solid #ddd; height: 74.8vh">
       <form action='/dress' method="post" enctype="multipart/form-data" class="upload">
-        <h3>Upload your picture</h3>
-	   <!-- <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />-->
-
-		   <input class="my-3" type="file" id="fileInput" name="file">
-	<!--<button id="submit">Submit</button>-->
+        <h3>Upload your picture:</h3>
+		    <input class="mt-4" type="file" id="fileInput" name="file">
       </form> <!--upload-->
-      <h3 class="mt-4">Measurements</h3>
+
+      <button type="button" class="btn btn-primary mt-4 mb-4" style="border-radius: 30px; font-size: 1.2em;" onclick="modelDress()">Dress Me!
+      </button><br>
+
+      <h3 class="mt-5 mb-4">Enter Your Measurements:</h3>
 	  <table id="measurements">
 	    <tr>
-  		  <th><h4>Chest</h4></th>
+  		  <th><h3>Chest</h3></th>
   		  <th><select id="chest_meas">
     	    <option value="c1">32</option>
     	    <option value="c2">33.5</option>
@@ -92,7 +91,7 @@
 	    </tr>
 
 	    <tr>
-  		  <th><h4>Waist</h4></th>
+  		  <th><h3>Waist</h3></th>
   		  <th><select id="waist_meas">
     	    <option value="w1">24</option>
     	    <option value="w2">25.5</option>
@@ -104,7 +103,7 @@
 	    </tr>
 
 	    <tr>
-  	      <th><h4>Hips</h4></th>
+  	      <th><h3>Hips</h3></th>
   		  <th><select id="hips_meas">
     	    <option value="h1">33</option>
     	    <option value="h2">35</option>
@@ -116,20 +115,18 @@
 	    </tr>
 	  </table>
   	
-  	  <button type="button" class="btn btn-primary mt-5 mb-4" style="border-radius: 30px; font-size: 1.2em;" onclick="model()">Get Recommended Size</button><br><br>
-      <a href="basket?n=<%=name%>&p_id=<%=p_id%>" class="btn btn-primary" style="border-radius: 30px; font-size: 1.2em">
+      <a href="basket?n=<%=name%>&p_id=<%=p_id%>" class="btn btn-primary" style="border-radius: 30px; font-size: 1.2em; margin-top: 2em;">
         Add To Cart
       </a>
     </div> <!--left-module-->
 
       
-	<div>
-		<canvas id="canvasOutput" style="height:400px;"></canvas>
-				
+	<div class="container mt-5">
+		<canvas id="canvasOutput" style="height:500px;"></canvas>
 				 
-		<img id="dress-img" class="" src="<%= src %>" style="display:none; height:400px;"/>
+		<img id="dress-img" class="" src="<%= src %>" style="display:none; height:500px;"/>
 	
-		<img id="model-img" class="" src="" style="position:relative;display:none; height:400px"/>
+		<img id="model-img" class="" src="" style="display:none; height:500px;"/>
 	</div>
 <!--
   	<div id="right-module">
