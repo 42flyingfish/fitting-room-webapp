@@ -9,7 +9,7 @@
 body {
   /*font-family: 'Open Sans', sans-serif;*/
   color: #aaaaaa;
-  overflow: hidden;
+  
 
 }
 
@@ -48,12 +48,7 @@ h4 {
   line-height: 0px;
 }
 
-#mid-module {
-  float: left;
-  height: 650px;
-  width: 75%;
-  overflow: hidden;
-}
+
 #dress-img{
   position: absolute;
   left: 38.55%;

@@ -2,26 +2,74 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="public/scripts/script.js"></script> <!--import external javascript-->
   
-  <script src="public/scripts/cv.js"></script>
-  <script async src="public/scripts/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="../public/scripts/cv.js"></script>
+  <script async src="../public/scripts/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+  <script src="../public/scripts/menu.js"></script>
+  <script src="../public/scripts/script.js"></script> <!--import external javascript-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
   <!--For Roboto-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="public/style/dress.css"> <!--import external css-->
+  <link rel="stylesheet" type="text/css" href="../public/style/dress.css"> <!--import external css-->
+
+  <link rel="stylesheet" type="text/css" href="../public/style/menu.css">
+
   <title> Dress Fitter</title>
 </head>
 
 <body>
+<header>
+            <!--Navbar-->
+      <nav class="navbar navbar-dark bg-dark mb-4 p-3">
+      
+        <!-- Collapse button -->
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+          aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
+        <!--<h3 style="position:relative; left: 37%; color: #fff;">Bridal Dress Store</h3>-->
+
+        <a href="<%= link %>" class="ml-auto mr-4" style="color:#fff; text-decoration: none;"><%= login%></a>
+        <a href="basket"> 
+          <img src="../public/images/cart.jpg" style="height:40px">
+        </a>
+        
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+      
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order">Orders</a>
+            </li>
+          </ul>
+          <!-- Links -->
+      
+        </div>
+        <!-- Collapsible content -->
+      
+      </nav>
+      <!--/.Navbar-->
+
+</header>
 <div id="wrapper">
   <div class="container" >
       <h1 id="webtitle">Bridal Fitter</h1>
       <h3 id="rec-size">Model Size</h3>
   </div>
 
-    <div id="left-module" class="container w-25 float-left" style="border-right: 1px solid #ddd; height: 650px;">
+    <div id="left-module" class="container w-25 float-left" style="border-right: 1px solid #ddd; height: 74.8vh">
       <form action='/dress' method="post" enctype="multipart/form-data" class="upload">
         <h3>Upload your picture</h3>
 	   <!-- <input type="file" id="chosenFile" name="chosenFile" accept="image/*" onchange="setModel()" />-->
@@ -75,7 +123,7 @@
     </div> <!--left-module-->
 
       
-	<div id="mid-module">
+	<div>
 		<canvas id="canvasOutput" style="height:400px;"></canvas>
 				
 				 

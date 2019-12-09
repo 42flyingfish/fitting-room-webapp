@@ -59,24 +59,21 @@ function sum(arr){
 }
 app.get("/order", (req, res) => {
 	const user = req.session.user;
-	
-	con.query("SELECT * FROM orders WHERE username=?", user.username, (err, result) => {
-		let text = "Log In", link = "login";
-		
-		if(user !== undefined){
-			text = "Log Out";
-			link = "logout";
+	let text = "Log In", link = "login";
+	if(user !== undefined){
+		text = "Log Out";
+		link = "logout";
+		con.query("SELECT * FROM orders WHERE username=?", user.username, (err, result) => {
 			res.render("order", {
 				login: text,
 				link: link,
 				orders: result
 			});
-		}
-		else{
-			res.redirect("/login");
-		}
-	});
-
+		});
+	}
+	else {
+		res.redirect("/login");
+	}
 });
 /*
 * creates a user if one does not already exist
@@ -110,14 +107,22 @@ app.post("/login", upload1.none(), (req, res, next) => {
 
 app.get("/dress", (req, res, next) => {
 	const queryObject = url.parse(req.url, true).query;
-	console.log(req.session.user);
+	const user = req.session.user;
+	let text = "Log In", link = "login";
+        
+    if(user !== undefined){
+    	text = "Log Out";
+    	link = "logout";
+    }
 	if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 		con.query("SELECT * FROM dress_info WHERE name = ?", queryObject.n, (err, result) => {
 			if(err) throw err;
 			res.render("dress", {
 				src: result[0].src,
 				name: result[0].name,
-				p_id: Math.floor(Math.random() * Math.pow(10, 9))
+				p_id: Math.floor(Math.random() * Math.pow(10, 9)),
+				login: text,
+				link:link
 			});
 		});	
 	}
