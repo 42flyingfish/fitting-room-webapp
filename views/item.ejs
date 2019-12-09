@@ -9,12 +9,53 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../public/scripts/menu.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  
+    <link rel="stylesheet" type="text/css" href="../public/style/menu.css">
     <title><%= dress.name %></title>
   </head>
   <body>
+    <header>
+           <!--Navbar-->
+           <nav class="navbar navbar-dark bg-dark mb-4 p-3">
+      
+              <!-- Collapse button -->
+              <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+                aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="animated-icon1"><span></span><span></span><span></span></div>
+              </button>
+      
+              <h1 style="position:relative; left: 35%; color: #fff;">Bridal Dress Shop</h1>
+      
+              <a href="<%= link %>" class="ml-auto mr-4" style="color:#fff; text-decoration: none;"><%= login%></a>
+              <a href="basket"> 
+                <img src="../public/images/cart.jpg" style="height:40px">
+              </a>
+              
+              <!-- Collapsible content -->
+              <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+            
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="account">Account</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="order">Orders</a>
+                  </li>
+                </ul>
+                <!-- Links -->
+            
+              </div>
+              <!-- Collapsible content -->
+            
+            </nav>
+            <!--/.Navbar-->
+    </header>
     <main class="container mt-5">
       <div class="container w-50 float-right" style="height: 75vh;">
         <h1 class=""><%= dress.name %></h1>

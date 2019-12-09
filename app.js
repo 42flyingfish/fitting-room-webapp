@@ -163,14 +163,14 @@ app.post('/dress', upload.single('chosenFile'), function (req, res, next) {
 });
 */
 app.get("/", (req, res) => {
-	//console.log(ssn.cart);
-	console.log(req.session.user);
+	////console.log(ssn.cart);
+	//console.log(req.session.user);
 	con.query("SELECT * FROM dress_info;",(err,result) => {
         if(err) throw err;
 
 
 		const N = Math.ceil(result.length/4);
-		console.log(result.length);
+		//console.log(result.length);
 		let dress_info = new Array(N);
 
 		for(let i = 0; i < N; i++){
@@ -200,17 +200,28 @@ app.get("/", (req, res) => {
     });
 });
 app.get("/item", (req, res) => {
-	console.log(req.session.user);
-    const queryObject = url.parse(req.url, true).query;
+	//console.log(req.session.user);
+	const queryObject = url.parse(req.url, true).query;
+	const user = req.session.user;
+	
+	////console.log(link);
     if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 	    con.query("SELECT * FROM dress_info WHERE name=?;",queryObject.n, (err, result) => {
-	        if(err) throw err;
+			if(err) throw err;
+			let text = (user !== undefined) ?  "Log Out" : "Log In";
+			let link = (user !== undefined) ?  "logout" : "login";
+        
+			
 	        res.render("item", {
 	           dress: {
+					
 	                src: result[0].src,
 	                name: result[0].name,
-	                price: result[0].price
-	            }
+					price: result[0].price
+					
+				},
+				login: text,
+				link: link
 	        });
 	    });
     }
@@ -221,8 +232,8 @@ app.get("/item", (req, res) => {
 });
 app.get("/account", (req, res) => {
 	const user = req.session.user;
-	console.log(user);
-	console.log(req.session);
+	//console.log(user);
+	//console.log(req.session);
 	let text = "Log In", link = "login";
 	if(user !== undefined){
 		text = "Log Out";
@@ -249,7 +260,7 @@ app.get("/basket", (req, res) => {
 	
 	const queryObject = url.parse(req.url, true).query;
 	const user = req.session.user;
-	console.log(user);
+	//console.log(user);
 	let text = "Log In", link = "login";
         
 	if(user !== undefined){
@@ -285,7 +296,7 @@ app.get("/basket", (req, res) => {
 		}
 		else{
 			con.query("SELECT * FROM cart WHERE username=?", user.username, (err, r4) => {
-				console.log(r4);
+				//console.log(r4);
 				res.render("basket", {
 					login: text,
 					link: link,
@@ -359,7 +370,7 @@ app.post("/photo/upload",upload.single("myImage"), (req, res, next) => {
 	const price = req.body.price;
 	const name = req.body.name;
 	const src = path.join("../public/images", (file.fieldname + "-" + file.originalname));
-	console.log(src);
+	//console.log(src);
 	if (!file) {
 	  const error = new Error('Please upload a file');
 	  error.httpStatusCode = 400;
@@ -377,4 +388,4 @@ app.get("/admin", (req, res) => {
 });
 
 app.listen(process.env.port || 3000);
-console.log("Running at port 3000");
+//console.log("Running at port 3000");
