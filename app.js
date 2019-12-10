@@ -267,7 +267,7 @@ app.get("/basket", (req, res) => {
 		text = "Log Out";
 		link = "logout";
 		const d = new Date();
-		const date = (d.getMonth() + 1) +"/" +d.getDay() +"/" +d.getFullYear();
+		const date = (d.getMonth() + 1) +"/" +d.getDate() +"/" +d.getFullYear();
 		if(Object.entries(queryObject).length !== 0 && queryObject.constructor !== Object){
 			con.query("SELECT * FROM dress_info WHERE name=?", queryObject.n, (err, r1) => { 
 				if(err) throw err;
@@ -388,4 +388,4 @@ app.get("/admin", (req, res) => {
 });
 
 app.listen(process.env.port || 3000);
-//console.log("Running at port 3000");
+console.log("Running at port 3000");
