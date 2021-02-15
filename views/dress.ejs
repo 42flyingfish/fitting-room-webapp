@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="../public/scripts/cv.js"></script>
+  <script async src="../public/scripts/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+  <script src="../public/scripts/menu.js"></script>
+  <script src="../public/scripts/script.js"></script> <!--import external javascript-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  <!--For Roboto-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Condensed&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../public/style/dress.css"> <!--import external css-->
+
+  <link rel="stylesheet" type="text/css" href="../public/style/menu.css">
+
+  <title> Bridal Fitting Room</title>
+</head>
+
+<body>
+<header>
+            <!--Navbar-->
+      <nav class="navbar navbar-dark bg-dark mb-4 p-3">
+      
+        <!-- Collapse button -->
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+          aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
+        <h1 style="position:relative; left: 35%; color: #fff;">Bridal Fitting Room</h1>
+
+        <a href="<%= link %>" class="ml-auto mr-4" style="color:#fff; text-decoration: none;"><%= login%></a>
+        <a href="basket"> 
+          <img src="../public/images/cart.jpg" style="height:40px">
+        </a>
+        
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+      
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order">Orders</a>
+            </li>
+          </ul>
+          <!-- Links -->
+      
+        </div>
+        <!-- Collapsible content -->
+      
+      </nav>
+      <!--/.Navbar-->
+
+</header>
+<div id="wrapper">
+    <div id="left-module" class="container w-25 float-left ml-3 pt-5" style="border-right: 1px solid #ddd; height: 74.8vh">
+      <form action='/dress' method="post" enctype="multipart/form-data" class="upload">
+        <h3>Upload your picture:</h3>
+		    <input class="mt-4" type="file" id="fileInput" name="file">
+      </form> <!--upload-->
+
+      <button type="button" class="btn btn-primary mt-4 mb-4" style="border-radius: 30px; font-size: 1.2em;" onclick="modelDress()">Dress Me!
+      </button><br>
+
+      <h3 class="mt-5 mb-4">Enter Your Measurements:</h3>
+	  <table id="measurements">
+	    <tr>
+  		  <th><h3>Chest</h3></th>
+  		  <th><select id="chest_meas">
+    	    <option value="c1">32</option>
+    	    <option value="c2">33.5</option>
+    	    <option value="c3">35</option>
+    	    <option value="c4">36.5</option>
+    	    <option value="c5">38</option>
+    	    <option value="c6">39.5</option>
+  		  </select></th>
+	    </tr>
+
+	    <tr>
+  		  <th><h3>Waist</h3></th>
+  		  <th><select id="waist_meas">
+    	    <option value="w1">24</option>
+    	    <option value="w2">25.5</option>
+    	    <option value="w3">27</option>
+    	    <option value="w4">28.5</option>
+    	    <option value="w5">30</option>
+    	    <option value="w6">31.5</option>
+  		  </select></th>
+	    </tr>
+
+	    <tr>
+  	      <th><h3>Hips</h3></th>
+  		  <th><select id="hips_meas">
+    	    <option value="h1">33</option>
+    	    <option value="h2">35</option>
+    	    <option value="h3">36.5</option>
+    	    <option value="h4">38</option>
+    	    <option value="h5">39.5</option>
+    	    <option value="h6">41</option>
+  		  </select></th>
+	    </tr>
+	  </table>
+  	
+      <a href="basket?n=<%=name%>&p_id=<%=p_id%>" class="btn btn-primary" style="border-radius: 30px; font-size: 1.2em; margin-top: 2em;">
+        Add To Cart
+      </a>
+    </div> <!--left-module-->
+
+      
+	<div class="w-75 h-100 mt-5 text-center">
+		<!---<canvas id="canvasOutput" style="height:500px;"></canvas>-->
+				 
+		<img id="dress-img" class="mx-auto mt-auto" src="<%= src %>" style="display:none; height:500px;"/>
+	
+		<img id="model-img" class="mx-auto mt-auto" src="" style="display:none; height:500px;"/>
+	</div>
+<!--
+  	<div id="right-module">
+  	  <h3>Dress Library</h3>
+
+	  <div id="dress-container">
+	  </div><br> dress-container
+
+	  <div class="upload">
+        <h3>Add to dress library</h3>
+        <input type="file" id="chosenDressFile" />
+      </div> upload
+
+    </div> right-module
+  -->
+</div> <!--wrapper-->
+</body>
+
+</html>
