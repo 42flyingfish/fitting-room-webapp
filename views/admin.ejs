@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../public/style/admin.css">
+    <title>Admin</title>
+  </head>
+  <body>
+        
+
+  
+
+        <script>
+            $(document).ready(function(){
+                $("#submit-btn").click(function(e){
+                    e.preventDefault();
+                    
+                    $.post("/upload",{
+                        username: $("#username").val(),
+                        password: $("#password").val()
+                    },(data, status) =>{
+                        
+                        if(data === "100"){
+                            $("#angryText").text("The information entered is incorrect.");
+                        }
+                        else{
+                            $(location).attr("href","http://localhost:3000/upload");
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <div class="container w-50">
+            <div class="row justify-content-center align-items-center" style="height: 100vh;">
+                <form  method="POST" class="col-12" action="/" enctype="multipart/form-data" id="usrForm">
+                    <h1 class="text-center" style="color: #fff">Admin Login</h1>
+                    <div class="form-group w-75 mt-4 mx-auto">
+                        <label for="username" style="color: #fff">Username</label>
+                        <input name="username" id="username" class="form-control w-100" type="text" style="color: #000" placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="form-group w-75 mx-auto">
+                        <label for="password" style="color: #fff">Password</label>
+                        <input name="password" id="password" class="form-control w-100" type="password" style="color: #000" placeholder="Enter you password">
+                    </div>
+                    <div class="text-center">
+                        <input id="submit-btn" class="btn btn-primary mt-3 w-75 " style="border-radius: 30px; font-size: 1.2em; display:inline;" type="submit">
+                    </div>
+                
+                    <div class="link-group text-center mt-4">
+                        <p id="angryText" class="angryText" style="color: #fff"></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
